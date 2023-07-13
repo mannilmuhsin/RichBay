@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rich Bay</title>
+    <link rel="stylesheet" href="/style2/style.css">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- bootstrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- bootstrap links -->
+    <!-- fonts links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- fonts links -->
+    <style>
+      .order-summary {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #eaeaea;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+      }
+  
+      .order-summary .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+  
+      .order-summary .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+  
+      .order-summary .item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 10px;
+      }
+  
+      .order-summary .item-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+  
+      .order-summary .item-price {
+        font-size: 16px;
+        color: #888888;
+        margin-bottom: 5px;
+      }
+  
+      .order-summary .total {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+  
+      .order-summary .btn {
+        margin-top: 20px;
+      }
+      .address-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .address-card label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .address-card p {
+            margin: 0;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+   
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Watches</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><img src="./images/menu.png" alt="" width="30px"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Product</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255);">
+                  <li><a class="dropdown-item" href="#">Samrt Watches</a></li>
+                  <li><a class="dropdown-item" href="#">Men</a></li>
+                  <li><a class="dropdown-item" href="#">Women</a></li>
+                  <li><a class="dropdown-item" href="#">Kidis</a></li>
+                  <li><a class="dropdown-item" href="#">Automatic</a></li>
+                  <li><a class="dropdown-item" href="#">Sorts Watches</a></li>
+        
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+            <form class="d-flex" id="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            
+              <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                      role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-user me-2 "></i>John Doe
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item " href="/userprofile">Profile</a></li>
+                      <li><a class="dropdown-item " href="#">Settings</a></li>
+                      <li><a class="dropdown-item " href="/logout">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          
+          </div>
+        </div>
+      </nav>
+    <!-- navbar -->
+    
+
+
+
+
+    <div class="container d-flex py-5 container-fluid justify-content-between">
+      <div class="row  ">
+        <div class="col-lg-12 col-md-12">
+        <h1>Checkout</h1>
+    
+       <form action="/checkout" method="post">
+    
+        <h3 class="mt-5">Address</h3>
+  
+
+              <% address.forEach((address,i)=>{ %>
+                <div class="address-card ms-5 mt-3">
+                  <input class="form-check-input" type="radio" id="address1" name="address" value="<%=address._id  %>" checked>
+                  <label class="form-check-label" for="address<%=i  %>"><%=address.name  %></label>
+                  <p>Mobile:<%=address.mobile  %></p>
+                  <p>Pin:<%=address.pin  %></p>
+                  <p>Locality: <%=address.locality  %></p>
+                  <p>Address: <%=address.address  %></p>
+                  <p>City:<%=address.city   %></p>
+                  <p>State: <%=address.state  %></p>
+                  <div class="container-fluid d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn-outline-dark p-2 rounded shadow">Edit</button>
+                  </div>
+              </div>
+
+
+                
+                <% }) %>
+
+                
+
+           </div>
+          </div>
+          
+           
+
+
+           <div class="container py-5 ms-5 mt-5 " style="padding-left: 20rem;" >
+            <div class="row "> 
+
+           <div class="order-summary mt-4">
+            <div class="title">Order Summary</div>
+            <% cart.items.forEach((product,i)=>{ %>
+            <div class="item">
+              <img src="<%=product.productimage  %>" alt="Product Image 1">
+              <div>
+                <div class="item-name"><%=product.productname  %></div>
+                <div class="item-price">Price: ₹ <%=product.productprice  %></div>
+                <div class="item-price">Quantity:<%=product.quantity  %></div>
+              </div>
+            </div>
+
+            <% }) %>
+          
+            <!-- Add more items as needed -->
+            <div>Shipping Charg :  ₹<span id="shipping" ></span></div>
+            <div  class="total">Total: ₹ <span id="Total" ><%=cart.cartprice  %></span></div>
+            <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+           
+
+<div class="d-flex ms-5">
+
+      <div class="container">
+        <div class="row  mt-5">
+          <div class="col-lg-6 col-md-8">
+            <div class="card mt-4">
+              <div class="card-header">
+                <h5 class="card-title">Payment Method</h5>
+              </div>
+              <div class="card-body">
+                <!-- <form> -->
+                  <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Select Payment Method</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Paymentmethod" id="cashOnDelivery" value="COD" >
+                      <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Paymentmethod" id="creditCard" value="creditCard">
+                      <label class="form-check-label" for="creditCard">Credit Card</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Paymentmethod" id="OnlinePayment" value="OnlinePayment">
+                      <label class="form-check-label" for="OnlinePayment">Online Payment</label>
+                    </div>
+                    <!-- Add more payment method options as needed -->
+                  </div>
+                  <!-- <button type="submit" class="btn btn-primary">Submit Payment</button> -->
+                <!-- </form> -->
+              </div>
+            </div>
+
+            <div class="card mt-4">
+              <div class="card-header">
+                <h5 class="card-title">Shipping Methods</h5>
+              </div>
+              <div class="card-body">
+                <!-- <form> -->
+                  <div class="mb-3">
+                    <label for="shippingMethod" class="form-label">Select Shipping Method</label>
+                    <div class="form-check">
+                      <input  onchange="Addshipping(80,'<%=cart.cartprice  %>')" class="form-check-input" type="radio" name="shippingmethod" id="standardShipping" value="standardShipping" >
+                      <label class="form-check-label" for="standardShipping">Standard Shipping</label>
+                    </div>
+                    <div class="form-check">
+                      <input onchange="Addshipping(40,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="expressShipping" value="expressShipping">
+                      <label class="form-check-label" for="expressShipping">Express Shipping</label>
+                    </div>
+                    <div class="form-check">
+                      <input onchange="Addshipping(0,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="freeShipping" value="freeShipping">
+                      <label class="form-check-label" for="freeShipping">Free Shipping</label>
+                    </div>
+                  </div>
+                  <!-- <button type="submit" class="btn btn-primary">Continue to Payment</button> -->
+                <!-- </form> -->
+              </div>
+            </div>
+
+
+        
+
+          </div>
+        </div>
+      </div>
+
+
+
+      </div>
+
+    </form>
+    
+     
+  
+
+
+    <!-- offer -->
+    <div class="container" id="offer">
+      <div class="row">
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h3>Free Shipping</h3>
+          <p>On order over $1000</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-rotate-left"></i>
+          <h3>Free Returns</h3>
+          <p>Within 30 days</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-truck"></i>
+          <h3>Fast Delivery</h3>
+          <p>World Wide</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-thumbs-up"></i>
+          <h3>Big choice</h3>
+          <p>Of products</p>
+        </div>
+      </div>
+    </div>
+    <!-- offer -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- footer -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Rich Bay Wathes</h3>
+              <p>
+                Malappuram <br>
+                Tirur <br>
+                India <br>
+              </p>
+              <strong>Phone:</strong> +000000000000000 <br>
+              <strong>Email:</strong> richbaywatches@.com <br>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Usefull Links</h4>
+             <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+             </ul>
+            </div>
+
+
+
+           
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+
+             <ul>
+              <li><a href="#">Women's Collection</a></li>
+              <li><a href="#">Men's Collection</a></li>
+              <li><a href="#">Smart Watches</a></li>
+              <li><a href="#">Automatic</a></li>
+              <li><a href="#">Kidis Collection</a></li>
+             </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Social Networks</h4>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+
+              <div class="socail-links mt-3">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-skype"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
+            
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Rich bay Watches</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="#">SA coding</a>
+        </div>
+      </div>
+    </footer>
+    <!-- footer -->
+
+
+
+
+
+
+
+    <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- axios cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+
+    <script>
+    function Addshipping(alue,cartprice) {
+             const total=document.getElementById("Total");
+             const thisis=parseInt(cartprice)
+             total.textContent=alue+thisis
+             const shipping=document.getElementById("shipping")
+             shipping.textContent=alue
+
+               }
+               
+    </script>
+    
+
+</body>
+</html>

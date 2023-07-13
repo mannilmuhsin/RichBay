@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title>Rich bay </title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+                    class="fas fa-user-secret me-2"></i>Codersbite</div>
+            <div class="list-group list-group-flush my-3">
+                <a href="/admin" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="/admin/addproduct" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-project-diagram me-2"></i>Add Product</a>
+                <a href="/admin/catogerylist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-project-diagram me-2"></i>Catogery</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-chart-line me-2"></i>Analytics</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-paperclip me-2"></i>Salse Reports</a>
+                <a href="/admin/userlist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-shopping-cart me-2"></i>Users</a>
+                <a href="/admin/Productlist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-gift me-2"></i>Products</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-comment-dots me-2"></i>Add coupen</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-map-marker-alt me-2"></i>Offers</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-power-off me-2"></i>Logout</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">Add Product</h2>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>John Doe
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        
+
+            <div class="container-fluid">
+                <div class="row ">
+                    <section class="gradient-custom container vh-100">
+                        <div class="container h-100 row justify-content-center mt-5">
+                                <div class="col-12 col-lg-9 col-xl-11">
+                                    <div class="card shadow-2-strong card-registration">
+                                        <div class="card-body shadow" style="border-radius: 5px;">
+                                            
+                                            <form action="/admin/addproduct" method="post" class="d-flex flex-column align-items-center mt-2" id="form-data" enctype="multipart/form-data">
+                                                
+                                                <div class="mb-3">
+                                                    <div class="fw-bold text-center fs-6 text-uppercase mb-1">Product Information</div>
+                                                </div>
+                
+                                                <div class="col-md-6">
+                
+                                                    <div class="form-outline mb-1">
+                                                        <label class="form-label" style="font-size: .75rem;" for="productName">Product Name</label>
+                                                        <input type="text" id="productName" name="productName" style="box-shadow: none;" class="form-control form-control-sm" required/>
+                                                    </div>
+                                                    
+                                                    <div class="form-outline mb-1 d-flex justify-content-between">
+                                                        <div class="col-6">
+                                                            <label class="form-label" style="font-size: .75rem;" for="category"  >Category</label>
+                                                            <select class="form-select form-select-sm input-sm shadow-none" id="category" name="category" >
+                                                               <% category.forEach((category,i)=>{ %>
+                                                               
+                                                                <option  value="<%=category._id %>"><%=category.catogeryname  %></option>
+                                                            <% }) %>
+                                                            </select>
+                                                        </div>
+                                                          
+                                                        <div class="col-5">
+                                                            <label class="form-label" style="font-size: .75rem;" for="price">Price</label>
+                                                            <input type="text" id="price" name="price" style="box-shadow: none;" class="form-control  form-control-sm" required/>
+                                                        </div>
+                                                    </div>
+                                                                                            
+                                                    <div class="form-outline mb-1">
+                                                        <label class="form-label" style="font-size: .75rem;" for="quantity">Quantity</label>
+                                                        <input type="text" id="quantity" name="quantity" style="box-shadow: none;" class="form-control  form-control-sm" required/>
+                                                    </div>
+                                                    
+                                                    <div class="form-outline mb-1">
+                                                        <label class="form-label" style="font-size: .75rem;" for="description">Description</label>
+                                                        <textarea class="form-control form-control-sm" id="description" name="description" style="box-shadow: none;" rows="3"></textarea>
+                                                    </div>
+                                                    
+                                                    <div class="form-outline mb-1">
+                                                        <label class="form-label" style="font-size: .75rem;" for="image">Image</label>
+                                                        <input type="file" class="form-control form-control-sm" name="image" style="box-shadow: none;" id="image" multiple>
+                                                    </div>
+                       
+                                                    
+                                                  </div>
+                
+                                                  <div id="error-field" class="text-danger"></div>
+                
+                                                <button type="submit" style="background-color: #7FAD39;color: #fff;width: 150px;" class="btn btn-sm fw-normal p-10 mb-3 mt-3">Create Product</button>    
+            
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+</body>
+
+</html>

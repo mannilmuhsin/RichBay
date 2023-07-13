@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rich Bay</title>
+    <link rel="stylesheet" href="/style2/style.css">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- bootstrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- bootstrap links -->
+    <!-- fonts links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- fonts links -->
+    <style>
+      #snackbar, #snackbar-error{
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 10px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+        border-radius: 15px;
+      }
+      
+      #snackbar.show, #snackbar-error.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;} 
+        to {bottom: 0; opacity: 0;}
+      }
+      
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
+  </style>
+</head>
+<body>
+
+    <!-- top navbar -->
+    <div class="top-navbar">
+      <% if(!session_id){ %>
+        <p>WELCOME TO OUR SHOP</p>
+        <div class="icons">
+          <a href="/login"><img src="./images/register.png" alt="" width="18px">Login</a>
+          <a href="/signup"><img src="./images/register.png" alt="" width="18px">Register</a>
+        </div>
+        <% } %>
+    </div>
+    <!-- top navbar -->
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Watches</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><img src="./images/menu.png" alt="" width="30px"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Product</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255);">
+                  <li><a class="dropdown-item" href="#">Samrt Watches</a></li>
+                  <li><a class="dropdown-item" href="#">Men</a></li>
+                  <li><a class="dropdown-item" href="#">Women</a></li>
+                  <li><a class="dropdown-item" href="#">Kidis</a></li>
+                  <li><a class="dropdown-item" href="#">Automatic</a></li>
+                  <li><a class="dropdown-item" href="#">Sorts Watches</a></li>
+        
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+            <form class="d-flex" id="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <% if(session_id){ %>
+              <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                      role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-user me-2 "></i>John Doe
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item " href="/userprofile">Profile</a></li>
+                      <li><a class="dropdown-item " href="#">Settings</a></li>
+                      <li><a class="dropdown-item " href="#">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <% } %>
+          </div>
+        </div>
+      </nav>
+    <!-- navbar -->
+    
+
+ 
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <div id="carouselExampleControls" class=" carousel slide" data-bs-ride="carousel" >
+        <div class=" carousel-inner" style="height: 500px; width: fit-content; object-fit: contain;">
+        
+          <div class=" carousel-item active " >
+            <img class="zoom d-block w-100 h-100" src="<%=thisproduct.image[0]  %>" id="primaryImage"  alt="Primary Photo">
+          </div>
+        
+
+       
+        </div>
+       
+      </div>
+    </div>
+    <div class="col-lg-6 ">
+      <h2 class=" mt-5"><%=thisproduct.productname  %></h2>
+      <p><%=thisproduct.description  %></p>
+      <p>₹ <%=thisproduct.price  %></p>
+
+        <button onclick="Addtocart('<%=thisproduct._id  %>')" class="btn btn-primary" >Add to Cart</button>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-lg-6 d-flex justify-content-center">
+        <div class="row ">
+          <% thisproduct.image.forEach((ok,i)=>{ %>
+
+
+          <div class="col">
+            <img src="<%=thisproduct.image[i]  %>"  class="secondary-photo border"  style="height: 100px; width: 100px;" alt="Secondary Photo 1" onclick="updatePrimaryImage(this)">
+          </div>
+
+          <% }) %>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class=" bg-danger" id="snackbar"><%= thisproduct.productname%> add to cart...</div>
+<div id="snackbar-error"><%= thisproduct.productname%> has no stock left...</div>
+
+
+
+
+    <!-- offer -->
+    <div class="container" id="offer">
+      <div class="row">
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h3>Free Shipping</h3>
+          <p>On order over $1000</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-rotate-left"></i>
+          <h3>Free Returns</h3>
+          <p>Within 30 days</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-truck"></i>
+          <h3>Fast Delivery</h3>
+          <p>World Wide</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-thumbs-up"></i>
+          <h3>Big choice</h3>
+          <p>Of products</p>
+        </div>
+      </div>
+    </div>
+    <!-- offer -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- footer -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Rich Bay Wathes</h3>
+              <p>
+                Malappuram <br>
+                Tirur <br>
+                India <br>
+              </p>
+              <strong>Phone:</strong> +000000000000000 <br>
+              <strong>Email:</strong> richbaywatches@.com <br>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Usefull Links</h4>
+             <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+             </ul>
+            </div>
+
+
+
+           
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+
+             <ul>
+              <li><a href="#">Women's Collection</a></li>
+              <li><a href="#">Men's Collection</a></li>
+              <li><a href="#">Smart Watches</a></li>
+              <li><a href="#">Automatic</a></li>
+              <li><a href="#">Kidis Collection</a></li>
+             </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Social Networks</h4>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+
+              <div class="socail-links mt-3">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-skype"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
+            
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Rich bay Watches</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="#">SA coding</a>
+        </div>
+      </div>
+    </footer>
+    <!-- footer -->
+
+
+
+
+
+
+
+    <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+      function updatePrimaryImage(img) {
+        var primaryImg = document.getElementById('primaryImage');
+        primaryImg.src = img.src;
+        primaryImg.classList.add('selected');
+      }
+
+      $(document).ready(function() {
+   $('.zoom').elevateZoom({
+      zoomWindowWidth: 150, 
+      zoomWindowHeight: 150
+       });   
+  });
+
+ 
+    </script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ <!-- axios cdn -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+ <!-- sweet alert cdn -->
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+ <script>
+   function Addtocart(id) {
+     console.log("asldj");
+     axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
+       console.log(result);      
+
+      if(result.data.response){
+        let x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000); 
+        }else{
+            let x = document.getElementById("snackbar-error");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+      //   location.reload();
+      
+       })
+      //  location.reload();
+     }
+ </script>
+
+
+</body>
+</html>
