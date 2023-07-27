@@ -27,7 +27,29 @@ const productschema=new schema({
     image:{
         type:Object,
         required:true
+    },
+    slug:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    color:{
+        type:String,
+        enum:["Black","White","Gold","Silver"]
+    },
+    ratings:[{
+        star:Number,
+        postedby:{type:mongoose.Schema.Types.ObjectId,ref:"User"}
+    }],
+    brand:{
+        type:String,
+        enum:["G-shock","Tissot","Rado"]
+    },
+    sold:{
+        type:Number,
+        default:0,
+        select:false
     }
-})
+},{timestamps:true})
 
 module.exports=mongoose.model('paroduct',productschema)

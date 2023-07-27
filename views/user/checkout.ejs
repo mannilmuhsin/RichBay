@@ -85,8 +85,9 @@
             margin-bottom: 5px;
         }
     </style>
+    
 </head>
-<body>
+<body style="background: #d4f8ea;">
 
    
     <!-- navbar -->
@@ -163,7 +164,7 @@
         <div class="col-lg-12 col-md-12">
         <h1>Checkout</h1>
     
-       <form action="/checkout" method="post">
+       <form id="payform" action="" method="">
     
         <h3 class="mt-5">Address</h3>
   
@@ -190,16 +191,95 @@
                 
 
            </div>
+           
+<div class="d-flex ms-3">
+
+  <div class="container">
+    <div class="row  mt-3">
+      <div class="col-lg-12 col-md-10">
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5 class="card-title">Payment Method</h5>
+          </div>
+          <div class="card-body">
+            <!-- <form> -->
+              <div id="paymentForm" class="mb-3">
+                <label for="paymentMethod" class="form-label">Select Payment Method</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="Paymentmethod" id="cashOnDelivery" value="COD" >
+                  <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="Paymentmethod" id="creditCard" value="creditCard">
+                  <label class="form-check-label" for="creditCard">Credit Card</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="Paymentmethod" id="OnlinePayment" value="OnlinePayment">
+                  <label class="form-check-label" for="OnlinePayment">Online Payment</label>
+                </div>
+                <!-- Add more payment method options as needed -->
+              </div>
+              <!-- <button type="submit" class="btn btn-primary">Submit Payment</button> -->
+            <!-- </form> -->
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5 class="card-title">Shipping Methods</h5>
+          </div>
+          <div class="card-body">
+            <!-- <form> -->
+              <div class="mb-3">
+                <label for="shippingMethod" class="form-label">Select Shipping Method</label>
+                <div class="form-check">
+                  <input  onchange="Addshipping(80,'<%=cart.cartprice  %>')" class="form-check-input" type="radio" name="shippingmethod" id="standardShipping" value="standardShipping" >
+                  <label class="form-check-label" for="standardShipping">Standard Shipping</label>
+                </div>
+                <div class="form-check">
+                  <input onchange="Addshipping(40,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="expressShipping" value="expressShipping">
+                  <label class="form-check-label" for="expressShipping">Express Shipping</label>
+                </div>
+                <div class="form-check">
+                  <input onchange="Addshipping(0,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="freeShipping" value="freeShipping">
+                  <label class="form-check-label" for="freeShipping">Free Shipping</label>
+                </div>
+              </div>
+              <!-- <button type="submit" class="btn btn-primary">Continue to Payment</button> -->
+            <!-- </form> -->
+          </div>
+        </div>
+
+
+    
+
+      </div>
+    </div>
+  </div>
+
+
+
+  </div>
           </div>
           
            
 
 
-           <div class="container py-5 ms-5 mt-5 " style="padding-left: 20rem;" >
-            <div class="row "> 
+           <div class="container py-5 ms-5 mt-5 " style="padding-left: 20rem; height:auto;" >
+            <div class="row shadow sticky-top "> 
 
-           <div class="order-summary mt-4">
+           <div class=" order-summary  mt-4" style="background: #76a2f4;">
             <div class="title">Order Summary</div>
+
+            <form class="mb-30" id="couponForm">
+              <div class="input-group">
+                  <input name="coupen" value="" type="text" id="couponName" pattern="^(?!.*\s)[^\s]+(?<!\s)$" class="form-control border-0 form-control-sm text-dark font-weight-bold" style="box-shadow: none;background-color: #f5f5f5;" placeholder="Coupon Code" required>
+                  <div class="input-group-append">
+                      <button  id="applyCouponButton"  class="btn btn-sm btn-dark" >Apply Coupon</button>
+                  </div>
+              </div>
+          </form>
+
             <% cart.items.forEach((product,i)=>{ %>
             <div class="item">
               <img src="<%=product.productimage  %>" alt="Product Image 1">
@@ -213,9 +293,10 @@
             <% }) %>
           
             <!-- Add more items as needed -->
-            <div>Shipping Charg :  ₹<span id="shipping" ></span></div>
+            <div class="checkout_order_total">Coupon dicount : ₹<span id="couponvalue" class="text-dark couponShow">0</span></div>
+            <div>Shipping Charg :  ₹<span id="shipping" >0</span></div>
             <div  class="total">Total: ₹ <span id="Total" ><%=cart.cartprice  %></span></div>
-            <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+            <button type="submit" onclick="" id="proceedbutton" class="btn btn-primary">Proceed to Checkout</button>
           </div>
 
         </div>
@@ -225,74 +306,6 @@
 
            
 
-<div class="d-flex ms-5">
-
-      <div class="container">
-        <div class="row  mt-5">
-          <div class="col-lg-6 col-md-8">
-            <div class="card mt-4">
-              <div class="card-header">
-                <h5 class="card-title">Payment Method</h5>
-              </div>
-              <div class="card-body">
-                <!-- <form> -->
-                  <div class="mb-3">
-                    <label for="paymentMethod" class="form-label">Select Payment Method</label>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Paymentmethod" id="cashOnDelivery" value="COD" >
-                      <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Paymentmethod" id="creditCard" value="creditCard">
-                      <label class="form-check-label" for="creditCard">Credit Card</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Paymentmethod" id="OnlinePayment" value="OnlinePayment">
-                      <label class="form-check-label" for="OnlinePayment">Online Payment</label>
-                    </div>
-                    <!-- Add more payment method options as needed -->
-                  </div>
-                  <!-- <button type="submit" class="btn btn-primary">Submit Payment</button> -->
-                <!-- </form> -->
-              </div>
-            </div>
-
-            <div class="card mt-4">
-              <div class="card-header">
-                <h5 class="card-title">Shipping Methods</h5>
-              </div>
-              <div class="card-body">
-                <!-- <form> -->
-                  <div class="mb-3">
-                    <label for="shippingMethod" class="form-label">Select Shipping Method</label>
-                    <div class="form-check">
-                      <input  onchange="Addshipping(80,'<%=cart.cartprice  %>')" class="form-check-input" type="radio" name="shippingmethod" id="standardShipping" value="standardShipping" >
-                      <label class="form-check-label" for="standardShipping">Standard Shipping</label>
-                    </div>
-                    <div class="form-check">
-                      <input onchange="Addshipping(40,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="expressShipping" value="expressShipping">
-                      <label class="form-check-label" for="expressShipping">Express Shipping</label>
-                    </div>
-                    <div class="form-check">
-                      <input onchange="Addshipping(0,'<%=cart.cartprice  %>')"  class="form-check-input" type="radio" name="shippingmethod" id="freeShipping" value="freeShipping">
-                      <label class="form-check-label" for="freeShipping">Free Shipping</label>
-                    </div>
-                  </div>
-                  <!-- <button type="submit" class="btn btn-primary">Continue to Payment</button> -->
-                <!-- </form> -->
-              </div>
-            </div>
-
-
-        
-
-          </div>
-        </div>
-      </div>
-
-
-
-      </div>
 
     </form>
     
@@ -427,24 +440,195 @@
 
 
 
+    <!-- sweet alert cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+     <!-- Include jQuery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- axios cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+    
 
 
     <script>
     function Addshipping(alue,cartprice) {
              const total=document.getElementById("Total");
+             const coupenvalue=document.getElementById("couponvalue");
              const thisis=parseInt(cartprice)
-             total.textContent=alue+thisis
+             const cvalue=parseInt(coupenvalue.textContent)
+             total.textContent=alue+thisis-cvalue
              const shipping=document.getElementById("shipping")
              shipping.textContent=alue
-
                }
-               
+
+              
+
+
+                // Function to handle the Online Payment method
+    function handleOnlinePayment() {
+      const paymentForm = document.getElementById('payform');
+  const formData = new FormData(paymentForm);
+
+
+      $.ajax({
+			url:"/razorpay",
+			type:"POST",
+			data:formData,
+      processData: false, // Set to false to prevent jQuery from processing FormData
+    contentType: false, 
+			success:function(res){
+				if(res.success){
+					var options = {
+						"key": ""+res.key_id+"",
+						"amount": ""+res.amount+"",
+						"currency": "INR",
+						"name": "RICH BAY",
+						"image":"../image/Screenshot 2023-06-16 112029 (1).png",
+						"order_id": ""+res.order_id+"",
+						"handler": function (response){
+							// alert("Payment Succeeded");
+              const paymentForm = document.getElementById('payform');
+  const formData = new FormData(paymentForm);
+
+      $.ajax({
+			url:"/checkout",
+			type:"POST",
+			data:
+        formData,
+      processData: false, // Set to false to prevent jQuery from processing FormData
+    contentType: false,
+    success:function(res){
+				if(res.success){
+          const coupen=res.coupen
+          const id=res.orderid
+          window.open("/success?coupen="+coupen+"&id="+id,"_self")
+        }}
+      })
+							// window.open("/","_self")
+						},
+						"prefill": {
+							"name": ""+res.name+"",
+							"email": ""+res.email+""
+						},
+						"notes" : {
+							"description":""+res.description+""
+						},
+						"theme": {
+							"color": "#2300a3"
+						}
+					};
+					var razorpayObject = new Razorpay(options);
+					razorpayObject.on('payment.failed', function (response){
+							alert("Payment Failed");
+					});
+					razorpayObject.open();
+				}
+				else{
+					alert(res.msg);
+				}
+			}
+		})
+        }
+        // Use this function to make a GET request or perform any specific actions for the Online Payment method.
+    
+
+
+    // Add an event listener to the form's submit event
+    const paymentForm = document.getElementById('payform');
+    const proceedbutton = document.getElementById('proceedbutton');
+
+    proceedbutton.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Retrieve the value of the selected payment method
+        const selectedPaymentMethod = document.querySelector('input[name="Paymentmethod"]:checked').value;
+        console.log('Selected Payment Method:', selectedPaymentMethod);
+        console.log('entered in function');
+        // Check if the selected payment method is "OnlinePayment"
+        if (selectedPaymentMethod === 'OnlinePayment') {
+            handleOnlinePayment();
+            console.log('online ayment');
+        }else{
+          const paymentForm = document.getElementById('payform');
+          const formData = new FormData(paymentForm);
+          const coupon = document.getElementById('couponName');
+
+
+      $.ajax({
+			url:"/checkout",
+			type:"POST",
+			data:formData,
+      processData: false, // Set to false to prevent jQuery from processing FormData
+    contentType: false,
+    success:function(res){
+				if(res.success){
+          const id=res.orderid
+          const coupen=res.coupen
+          window.open("/success?coupen="+coupen+"&id="+id,"_self")
+        }}
+      })
+        }
+
+        // Add any further processing or validation logic here
+
+        // Now you can manually submit the form if needed
+        // paymentForm.submit();
+    });
+
+
+
+    //for coupen handling
+
+    const couponForm = document.getElementById('couponForm');
+    const applyCouponButton = document.getElementById('applyCouponButton');
+
+    applyCouponButton.addEventListener('click',(e)=>{
+            e.preventDefault();
+
+            const coupon = document.getElementById('couponName');
+            const addressId = document.getElementById('addressId');
+            
+            axios({
+                method: "post",
+                url: "/coupon-apply",
+                data: {
+                    couponName: coupon.value,
+                    cartPrice: '<%= cart.cartprice %>'
+                }
+            })
+            .then((result)=>{
+                console.log(result);
+                if(result.data.response == false){
+                    Swal.fire({
+                    icon: "warning",
+                    title: "Invalid coupon",
+                    })
+                    const total=document.getElementById("Total");
+                    document.querySelector('.couponShow').innerHTML= `${0}`;
+                    document.querySelector('.couponShow').removeAttribute("value");
+                    document.getElementById('Total').innerHTML=total.textContent
+                    coupon.value = '';
+                }else if(result.data.response == "min"){
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "You can't apply this coupon",
+                    })
+
+                }else{
+                  const scharg=document.getElementById("shipping");
+                  const schagvalue=parseInt(scharg.textContent)
+                  const cartprice=parseInt('<%=cart.cartprice  %>')
+                  const alltotal=cartprice+schagvalue
+                    document.querySelector('.couponShow').innerHTML= `${result.data.coupon.discount}`;
+                    document.querySelector('.couponShow').setAttribute("value",result.data.coupon._id);
+                    document.getElementById('Total').innerHTML= alltotal- result.data.coupon.discount.toFixed(2);
+                }
+            })
+        })
+                      
     </script>
     
 

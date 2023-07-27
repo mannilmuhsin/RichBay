@@ -4,6 +4,66 @@ const ordermodel = require("../../model/order/ordermodel");
 const orderitemmodel = require("../../model/order-item/orderitemmodel");
 const productmodel = require("../../model/product/productmodel");
 const { promises } = require("nodemailer/lib/xoauth2");
+const Razorpay= require('razorpay');
+const usermodel = require("../../model/user/usermodel");
+const coupenmodel = require("../../model/coupen/coupenmodel");
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_SECRET_KEY
+});
+
+const razorpayactive=async (req,res)=>{
+  try {
+    const user=await usermodel.findOne({_id:req.session.session_id})
+    const cart = await cartmodel.findOne({ userid: req.session.session_id });
+    let shippingcharge = 0;
+    if (req.body.shippingmethod == "standardShipping") {
+      shippingcharge = 80;
+    }
+    if (req.body.shippingmethod == "expressShipping") {
+      shippingcharge = 40;
+    }
+    const coupen = await coupenmodel.findOne({couponName:req.body.coupen})
+    let coupencharg=0
+    if(coupen){
+      coupencharg=coupen.discount
+    }
+    const totalprice= cart.cartprice + shippingcharge-coupencharg
+    
+    const amount = totalprice*100
+    const options = {
+  
+        amount: amount,
+        currency: 'INR',
+        receipt: 'marakadians@gmail.com'
+    }
+
+    razorpay.orders.create(options, 
+        (err, order)=>{
+            if(!err){
+              // console.log(req.body)
+                res.status(200).send({
+                    success:true,
+                    msg:'Order Created',
+                    order_id:order.id,
+                    amount:amount,
+                    key_id:process.env.RAZORPAY_KEY,
+                    name: user.username,
+                    email: user.email
+                });
+            }
+            else{
+                res.status(400).send({success:false,msg:'Something went wrong!'});
+            }
+        }
+    );
+
+} catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Something went wrong' });
+}
+}
 
 //for load checkout
 
@@ -27,6 +87,11 @@ const creatorder = async (req, res) => {
     }
     if (req.body.shippingmethod == "expressShipping") {
       shippingcharge = 40;
+    }
+    const coupen = await coupenmodel.findOne({couponName:req.body.coupen})
+    let coupencharg=0
+    if(coupen){
+      coupencharg=coupen.discount
     }
 
     const cart = await cartmodel.findOne({ userid: req.session.session_id });
@@ -52,7 +117,7 @@ const creatorder = async (req, res) => {
     const order = new ordermodel({
       orderitems: orderitemre,
       shippingaddress: req.body.address,
-      totalprice: cart.cartprice + shippingcharge,
+      totalprice: cart.cartprice + shippingcharge-coupencharg,
       user: cart.userid,
       Paymentmethod: req.body.Paymentmethod,
       shippingmethod: req.body.shippingmethod,
@@ -80,10 +145,17 @@ const creatorder = async (req, res) => {
         );
       })
     );
-    console.log(never);
 
     await cartmodel.deleteOne({ userid: req.session.session_id });
-    res.redirect('/')
+   
+    res.status(200).send({
+      success:true,
+      orderid:orders._id,
+      coupen:coupen.discount
+  });
+
+    
+    // res.render('./user/success')
     // console.log(order);
   } catch (error) {
     console.log(error.message);
@@ -94,32 +166,18 @@ const creatorder = async (req, res) => {
 
 const cancelorder = async (req, res) => {
   try {
-    const order = await ordermodel.find({ _id: req.query.orderid });
-    const index = order[0].orderitems.indexOf(req.query.itemid);
-    
-    const thispro = await ordermodel
-    .find({ _id: req.query.orderid })
-    .populate("orderitems");
-    const product = await productmodel.findOne({
-        _id: thispro[0].orderitems[index].product,
-    });
-    await productmodel.updateOne(
-        { _id: thispro[0].orderitems[index].product },
-        {
-            $set: {
-                quantity: product.quantity + thispro[0].orderitems[index].quantity,
-            },
-        }
-        );
-        order[0].orderitems.splice(index, 1);
-        await ordermodel.updateOne(
-          { _id: req.query.orderid },
-          { $set: { orderitems: order[0].orderitems } }
-        );
-    const drop = await ordermodel.find({ _id: req.query.orderid });
-    if (drop[0].orderitems.length == 0) {
+    const order = await ordermodel.findOne({ _id: req.query.orderid });
+
+    order.orderitems.map(async(item)=>{
+      console.log(item);
+      const oneitem=await orderitemmodel.findOne({_id:item})
+      const product= await productmodel.findOne({_id:oneitem.product})
+      console.log(product);
+      await productmodel.updateOne({_id:oneitem.product},{$set:{quantity:product.quantity+oneitem.quantity}})
+      console.log(oneitem.quantity);
+    })
+   
       await ordermodel.deleteOne({ _id: req.query.orderid });
-    }
 
     res.json({ response: true });
   } catch (error) {
@@ -131,4 +189,5 @@ module.exports = {
   loadcheckout,
   creatorder,
   cancelorder,
+  razorpayactive
 };

@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  
     <!-- fonts links -->
     <style>
       #snackbar, #snackbar-error{
@@ -61,7 +62,7 @@
       }
   </style>
 </head>
-<body>
+<body style="background: #d4f8ea;">
 
     <!-- top navbar -->
     <div class="top-navbar">
@@ -147,11 +148,15 @@
     <div class="col-lg-6">
       <div id="carouselExampleControls" class=" carousel slide" data-bs-ride="carousel" >
         <div class=" carousel-inner" style="height: 500px; width: fit-content; object-fit: contain;">
-        
-          <div class=" carousel-item active " >
-            <img class="zoom d-block w-100 h-100" src="<%=thisproduct.image[0]  %>" id="primaryImage"  alt="Primary Photo">
-          </div>
-        
+        <!-- Your Bootstrap Carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <!-- Ensure that thisproduct.image[0] evaluates to the correct image URL -->
+      <img class="zoom d-block w-100 h-100" src="<%= thisproduct.image[0] %>" id="primaryImage" alt="Primary Photo">
+    </div>
+  </div>
+</div>
 
        
         </div>
@@ -321,29 +326,54 @@
 
 
     
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Elevate Zoom library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+
+<!-- Bootstrap (optional, if you're using it for layout) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script>
+  $(document).ready(function() {
+    // Replace '.zoom-container' with the appropriate selector for your div.
+    $('.zoom').elevateZoom({
+      zoomWindowWidth: 200,      // Width of the zoom window
+      zoomWindowHeight: 200,     // Height of the zoom window
+      cursor: "crosshair",       // Cursor type on zoomed image
+      zoomWindowFadeIn: 100,     // Fade-in speed of the zoom window
+      zoomWindowFadeOut: 100,    // Fade-out speed of the zoom window
+      zoomLevel: 1.5             // Zoom level (1 means no zoom, 2 means double, etc.)
+    });
+  });
+</script>
+<style>
+  .zoom-container {
+    position: relative;
+  }
+
+  .zoomLens {
+    border: 2px solid #000; /* Customize the zoom lens border color */
+  }
+
+  .zoomWindowContainer {
+    border: 2px solid #000; /* Customize the zoom window border color */
+    background-color: #fff; /* Customize the zoom window background color */
+  }
+</style>
 
     
-    
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
       function updatePrimaryImage(img) {
         var primaryImg = document.getElementById('primaryImage');
         primaryImg.src = img.src;
         primaryImg.classList.add('selected');
       }
-
-      $(document).ready(function() {
-   $('.zoom').elevateZoom({
-      zoomWindowWidth: 150, 
-      zoomWindowHeight: 150
-       });   
-  });
-
  
+
     </script>
+
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -374,6 +404,7 @@
        })
       //  location.reload();
      }
+  
  </script>
 
 

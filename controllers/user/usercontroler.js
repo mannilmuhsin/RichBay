@@ -10,6 +10,8 @@ const addressmodel=require('../../model/address/addressmodel');
 const usermodel = require('../../model/user/usermodel');
 const orderitemmodel = require('../../model/order-item/orderitemmodel');
 const ordermodel = require('../../model/order/ordermodel');
+const cartmodel = require('../../model/cart/cartmodel');
+const catogerymodel = require('../../model/catogery/catogerymodel');
 
 
 
@@ -53,8 +55,9 @@ if(req.session.session_id){
 
 const loadHome=async (req,res)=>{
     try{
+        const catogery=await catogerymodel.find({})
         const product=await productmodel.find({quantity:{$gt:0}})
-           res.render('./user/home',{message:'',product,session_id:req.session.session_id})
+           res.render('./user/home',{message:'',product,session_id:req.session.session_id,catogery})
 
     }catch (e){
         console.log(e.message);
@@ -136,10 +139,11 @@ const token=makeotp()
 console.log(token.secret.base32);
 console.log(token.token);
 req.session.secret=token.secret.base32
-req.session.session_id=userdata._id
+// req.session.session_id=userdata._id
+req.session.token=userdata._id
 sendverifyemail(null,email,token.token)
 // res.redirect('/')
-res.render('./verify/otp')
+res.redirect('/getotp')
 }
 }
     }catch (e){
@@ -220,7 +224,6 @@ const loadveryfi=async (req,res)=>{
 
 const verifyotp=async (req,res)=>{
     try {
-        console.log('first');
         const validation=speakeasy.totp.verify({
             secret:req.session.secret,
             encoding:'base32',
@@ -233,26 +236,48 @@ const verifyotp=async (req,res)=>{
        
         console.log(validation);
         if(validation){
-            console.log('third');
-            const user=await User.findOne({_id:req.session.session_id})
+            const user=await User.findOne({_id:req.session.token})
         if(user){
             user.verifide=true
           
             await user.save()
+            req.session.session_id=req.session.token
+            req.session.token=null
             res.redirect('/login')
         }else{
+            req.session.session_id=null
             res.redirect('/signup')
         }
 
             
             // res.redirect('/')
         }else{
-            req.session.destroy();
+            // await usermodel.deleteOne({_id:req.session.session_id})
+            // req.session.destroy();
             // req.session.session_id=null
-            res.clearCookie('user_id')
-            res.render('./user/login',{message:'OTP NOT MACHING try again'})
+            // res.clearCookie('user_id')
+            res.render('./verify/otp',{message:'OTP NOT MACHING try again'})
 
         }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+//reotp making
+const resendotp=async (req,res)=>{
+    try {
+        const token=makeotp()
+        console.log(req.session.token);
+console.log(token.token);
+req.session.secret=token.secret.base32
+// req.session.session_id=userdata._id
+// req.session.token=userdata._id
+const user=await usermodel.findOne({_id:req.session.token})
+// console.log(user);
+sendverifyemail(null,user.email,token.token)
+res.render('./verify/otp',{message:'OTP NOT MACHING try again'})
+        
     } catch (error) {
         console.log(error.message);
     }
@@ -272,6 +297,7 @@ const loadotp=async(req,res)=>{
 
 const loaduserprofile=async(req,res)=>{
     try {
+        const catogery=await catogerymodel.find({})
         const orderlist = await ordermodel.find({user:req.session.session_id}).populate('user','username')
         .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
         
@@ -279,7 +305,7 @@ const loaduserprofile=async(req,res)=>{
         const user=await usermodel.findOne({_id:req.session.session_id})
         const address=await addressmodel.find({userid:req.session.session_id})
       
-        res.render('./user/userprofile',{user,address,orderlist})
+        res.render('./user/userprofile',{user,address,orderlist,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -420,6 +446,115 @@ const logout=async (req,res)=>{
     }
 }
 
+//for display catogety 
+
+
+const displaycatogery = async(req,res)=>{
+    try {
+        const catogery=await catogerymodel.find({})
+        const product=await productmodel.find({catogery:req.query.id,quantity:{$gt:0}})
+        res.render('./catogery/catogery-user-viwe',{product,session_id:req.session.session_id,catogery})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+//for display full product
+
+const displayfullproduct=async (req,res)=>{
+    try {
+        const catogery=await catogerymodel.find({})
+        const product=await productmodel.find({quantity:{$gt:0}})
+        
+        res.render('./catogery/full-products',{product,session_id:req.session.session_id,catogery})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+// for list search product
+
+const list_search_product=async(req,res)=>{
+    try {
+        const product=await productmodel.find({$or:[
+            {productname:{$regex:'.*'+req.body.search+'.*',$options:'i'}},
+            // {catogery:{$regex:'.*'+req.query.search+'.*',$options:'i'}},
+            // {price:{$regex:'.*'+req.body.search+'.*'}}
+    ]})
+    const catogery=await catogerymodel.find({})
+    res.render('./catogery/search-product',{product,session_id:req.session.session_id,catogery})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+// for load success page
+
+const loadsuccess=async(req,res)=>{
+    try {
+        const coupen=req.query.coupen
+        const order=await ordermodel.findOne({_id:req.query.id}).populate('user','username')
+        .populate('shippingaddress')
+        .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
+
+        let shippingcharge = 0;
+        if (order.shippingmethod == "standardShipping") {
+          shippingcharge = 80;
+        }
+        if (order.shippingmethod == "expressShipping") {
+          shippingcharge = 40;
+        }
+        
+        res.render('./user/success',{order,shippingcharge,coupen})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+//for wish list 
+
+const wishlisthandle=async(req,res)=>{
+    try {
+        const user=await usermodel.findOne({_id:req.session.session_id})
+        const allredyadded= user.wishlist.find((id)=>id.toString()===req.query.prodid)
+
+        if(allredyadded){
+
+            await User.findByIdAndUpdate(
+                req.session.session_id,
+                {
+                    $pull:{wishlist:req.query.prodid}
+                },
+                {new:true}
+            )
+            res.json({ response: false });
+        }else{
+            await User.findByIdAndUpdate(
+                req.session.session_id,
+                {
+                    $push:{wishlist:req.query.prodid}
+                },
+                {new:true}
+            );
+            res.json({ response: true });
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+// for load wish list 
+
+const load_wish_list=async (req,res)=>{
+    try {
+        const user= await usermodel.findOne({_id:req.session.session_id})
+        const product=await productmodel.find({_id:{$in:user.wishlist}})
+        console.log(product);
+        res.render('./catogery/wishlist',{product})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports={
     loadsignup,
@@ -431,6 +566,9 @@ module.exports={
     loadveryfi,
     verifyotp,
     loadotp,
+    list_search_product,
+    wishlisthandle,
+    load_wish_list,
     
     loaduserprofile,
     loadaddress,
@@ -441,5 +579,9 @@ module.exports={
     editprofile,
     loadchangpassword,
     change_password,
-    logout
+    logout,
+    resendotp,
+    displaycatogery,
+    displayfullproduct,
+    loadsuccess
 }

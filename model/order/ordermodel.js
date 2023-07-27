@@ -9,12 +9,13 @@ const orderschema=mongoose.Schema({
         // required:true
     }],
     shippingaddress:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'address',
         required:true
     },
     status:{
         type:String,
-        default:"pending",
+        default:"Pending",
         required:true,
     },
     totalprice:{
@@ -40,7 +41,7 @@ const orderschema=mongoose.Schema({
     },
     shippingmethod:{
         type:String,
-        // required:true
+        required:true
 
     }
 

@@ -5,6 +5,7 @@ const usercontroller=require('../../controllers/user/usercontroler')
 const cartcontroller=require('../../controllers/cartcontroller/cartcontroller')
 const catogerycontroller=require('../../controllers/catogery/catogerycontroler')
 const ordercontroller=require('../../controllers/order/ordercontroller')
+const coupencontroller=require('../../controllers/coupen/coupencontroller')
 const midelwear=require('../../miidlewears/midelwears')
 
 
@@ -28,9 +29,16 @@ userrouter.get('/productdetiles',catogerycontroller.loadproductdetiles)
 userrouter.get('/addtocart',midelwear.islogin,cartcontroller.addtocart)
 userrouter.get('/removeonefromcart',midelwear.islogin,cartcontroller.removeonefromcart)
 userrouter.get('/cancelorder',midelwear.islogin,ordercontroller.cancelorder)
+userrouter.get('/reotp',usercontroller.resendotp)
+userrouter.get('/catogery-user',usercontroller.displaycatogery)
+userrouter.get('/display-products',usercontroller.displayfullproduct)
+userrouter.get('/success',usercontroller.loadsuccess)
+userrouter.get('/wish-list-handle',usercontroller.wishlisthandle)
+userrouter.get('/wish-list',usercontroller.load_wish_list)
 
 
 
+userrouter.post('/list-search-porduct',usercontroller.list_search_product)
 userrouter.post('/addtocart',cartcontroller.addtocart)
 userrouter.post('/signup',usercontroller.createUser)
 userrouter.post('/login',usercontroller.verifyLogin)
@@ -40,6 +48,8 @@ userrouter.post('/editaddress',usercontroller.editaddress)
 userrouter.post('/editprofile',usercontroller.editprofile)
 userrouter.post('/change_password',usercontroller.change_password)
 userrouter.post('/checkout',ordercontroller.creatorder)
+userrouter.post('/razorpay',ordercontroller.razorpayactive)
+userrouter.post('/coupon-apply',coupencontroller.applyCoupon)
 
 
 module.exports=userrouter

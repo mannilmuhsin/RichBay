@@ -26,7 +26,10 @@ const userschema=new schema({
     isadmin:{
         type:Boolean,
         require:true
-    }
+    },
+    wishlist:[
+    {type:mongoose.Schema.Types.ObjectId,ref:"paroduct"}
+    ]
 })
 
 module.exports=mongoose.model('users',userschema)

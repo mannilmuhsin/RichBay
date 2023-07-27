@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
     <!-- fonts links -->
 </head>
-<body  style="background: #d4f8ea;">
+<body style="background: #d4f8ea;">
 
    
     <!-- navbar -->
@@ -40,10 +40,13 @@
                   Category
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255);">
-                  <% catogery.forEach((cat,i)=>{%>
-                    <li><a class="dropdown-item" href="/catogery-user?id=<%=cat._id %>"><%=cat.catogeryname  %></a></li>
-  
-                      <% }) %>
+                  <li><a class="dropdown-item" href="#">Samrt Watches</a></li>
+                  <li><a class="dropdown-item" href="#">Men</a></li>
+                  <li><a class="dropdown-item" href="#">Women</a></li>
+                  <li><a class="dropdown-item" href="#">Kidis</a></li>
+                  <li><a class="dropdown-item" href="#">Automatic</a></li>
+                  <li><a class="dropdown-item" href="#">Sorts Watches</a></li>
+        
                 </ul>
               </li>
               <li class="nav-item">
@@ -65,12 +68,12 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-user me-2 "></i><%=user.username%>
+                      <i class="fas fa-user me-2 "></i>John Doe
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item " href="#">Profile</a></li>
+                      <li><a class="dropdown-item " href="/userprofile">Profile</a></li>
                       <!-- <li><a class="dropdown-item " href="#">Settings</a></li> -->
-                      <li><a class="dropdown-item " href="/logout">Logout</a></li>
+                      <li><a class="dropdown-item " href="/">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -81,158 +84,51 @@
         </div>
       </nav>
     <!-- navbar -->
-    
 
-
-    <div class="container py-5">
-        <div class="row ">
-          <div class="col-md-4 mt-5 me-2  d-flex justify-content-center">
-            <div class="card  ">
-              <div class="card-body text-center ">
-                <i class="bi bi-person-circle fs-1"></i>
-                <h5 class="card-title mt-3">Personal Information</h5>
-                <div class="mt-5"  style="margin-left: 60px; width: 200px; height: 200px; background: url(https://cdn-icons-png.flaticon.com/512/21/21104.png); background-size: cover;"></div>
-                <h2 class="card-title mt-5"><%=user.username%></h2>
-                <p class="card-text">Email :<%=user.email%></p>
-               <div class="d-flex mt-5">           
-              <a href="/editprofile" class="nav-link mt-3 bg-dark btn">Edit Profile</a>
-              <a href="/change_password" class="nav-link mt-3 bg-dark btn">Change Password</a>
-            </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="card-body border col-md-3 justify-content-center d-flex">
-          <div class="col-md-8 ">
-            <% address.forEach((address,i)=>{ %>
-
+    <div class="container" id="product-cards">
+        <h1 class="text-center">WISH LIST PRODUCTS</h1>
+        <div class="row" style="margin-top: 30px">
+          <% product.forEach((product,i)=>{ %>
+          <div class="col-md-3 py-3 py-md-0">
             <div class="card mt-4">
-
-
+              <img style="height: 300px" src="<%=product.image[0]  %>" alt="" />
               <div class="card-body">
-                <h5 class="card-title">Address<%=i+1  %></h5>
-                <p class="card-text">
-                  Name :<%=address.name %>  ,
-                  <br>
-                  Mobile No :<%=address.mobile %>,
-                  <br>
-                  pin :<%=address.pin %>,
-                  <br>
-                  address :<%=address.address %>,
-                  <br>
-                  city :<%=address.city %>,
-                  <br>
-                  state :<%=address.state %>
-                </p>
-                <a href="/editaddress?id=<%=address._id  %>" class="btn btn-primary">Edit Address</a>
-              </div>
-            </div>
-            <% }) %>
-            
-            
-            <a href="/addaddress" class="nav-link text-white border mt-3 fw-bold  fs-3 justify-content-center d-flex bg-dark">Add Address</a>
-            </div>
-          </div>
-
-
-            <div class="card mt-5">
-              <div class="card-body">
-                <h5 class="card-title">Orders</h5>
-                <div class="list-group shadow">
-                  
-
-                  <% orderlist.forEach((order,i)=>{ %>
-
-                  <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <span class="fw-bold">Order ID:</span> <%=order._id  %>
-                        <br>
-                        <span class="fw-bold">Date:</span> <%=order.dateorder.toLocaleDateString('en-US', { 
-                          month: 'long', 
-                          day: 'numeric',
-                          year: 'numeric',});%>
-                        <br>
-                        <% var products=0  %>
-                        <% order.orderitems.forEach((item,i)=>{ %>
-                          <% products++ %>
-                          <% }) %>
-                        <span class="fw-bold">Products : <%=products  %> </span> 
-                        
-                        <br>
-                        <br>
-                      
-                        <% order.orderitems.forEach((item,i)=>{ %>
-
-                          
-                        <img src="<%=item.product.image[0]  %>" alt="Product 1" class="img-thumbnail mt-2" style="width: 100px;">
-                        <% }) %>
-                      </div>
-                      <div>
-                        <span class="fw-bold">Status:</span> <%=order.status  %>
-                        <br>
-                        <% if(order.status!=='Deliverd'){%>
-                        <button onclick="Cancelorder('<%=order._id  %>')" class="btn btn-danger btn-sm mt-2">Cancel Order</button>
-                        <% }else{ %>
-                          <button onclick="" class="btn btn-danger btn-sm mt-2">Rerurn</button>
-                          <% } %>
-                      </div>
-                    </div>
-                  </div>
-
-                  <% }) %>
-               
+                <h3 class="text-center"><%=product.productname %></h3>
+                <p class="text-center"><%=product.description %></p>
+                <div class="star text-center">
+                  <a
+                    class="btn btn-outline-success"
+                    href="/productdetiles?id=<%=product._id  %>"
+                    >shop now</a
+                  >
+  
+                  <!-- <i class="fa-solid fa-star checked"></i> -->
+                  <!-- <i class="fa-solid fa-star checked"></i>
+                  <i class="fa-solid fa-star checked"></i>
+                  <i class="fa-solid fa-star checked"></i>
+                  <i class="fa-solid fa-star checked"></i> -->
+                </div>
+                <div class="d-flex justify-content-center">
+                  <h2>₹ <%=product.price %></h2>
+                  <a
+                    onclick="Addtowishlist('<%=product._id  %>')"
+                    class="nav-link text-dark mt-2"
+                    style="margin-left: 5rem"
+                    ><span><li class="far fa-heart"></li></span
+                  ></a>
+                  <a
+                    onclick="Addtocart('<%=product._id  %>')"
+                    class="nav-link text-dark mt-2"
+                    ><span><li class="fa-solid fa-cart-shopping"></li></span
+                  ></a>
                 </div>
               </div>
             </div>
-
-
-
-           
           </div>
+          <% }) %>
         </div>
       </div>
-    
-
-
-
-    <!-- offer -->
-    <div class="container" id="offer">
-      <div class="row">
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <h3>Free Shipping</h3>
-          <p>On order over $1000</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-rotate-left"></i>
-          <h3>Free Returns</h3>
-          <p>Within 30 days</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-truck"></i>
-          <h3>Fast Delivery</h3>
-          <p>World Wide</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-thumbs-up"></i>
-          <h3>Big choice</h3>
-          <p>Of products</p>
-        </div>
-      </div>
-    </div>
-    <!-- offer -->
-
-
-
-
-
-
-
-
-
-
-
+      
     <!-- footer -->
     <footer id="footer">
       <div class="footer-top">
@@ -327,39 +223,44 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
  
- 
-    <!-- axios cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+     <!-- axios cdn -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
 
-    <!-- sweet alert cdn -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        function Cancelorder(orderid,itemid) {
-          Swal.fire({
-            icon: "warning",
-            title: "Are you sure?",
-            text: "Cancel Order?",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ok",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              axios.get(`/cancelorder?orderid=${orderid}`).then((result) => {
-                Swal.fire("Canceld.!", "Product has been Canceld.", "success").then((response) => {
-                  location.reload();
-                })
-              })
-              
-            }
-          });
-        }
-      </script>
-   
+     <!-- sweet alert cdn -->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
+     <script>
+         
+         function Addtocart(id) {
+        axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
+          if (result.data.response) {
+            let x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () {
+              x.className = x.className.replace("show", "");
+            }, 2000);
+          } else {
+            let x = document.getElementById("snackbar-error");
+            x.className = "show";
+            setTimeout(function () {
+              x.className = x.className.replace("show", "");
+            }, 2000);
+          }
+        });
+      }
+
+      function Addtowishlist(id) {
+        axios.get(`/wish-list-handle?prodid=${id}`).then((result) => {
+          if (result.data.response) {
+            location.reload();
+          } else {
+            location.reload();
+          }
+        });
+      }
+             
+       </script>
 
 </body>
 </html>

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Shop</title>
+    <link rel="stylesheet" href="/style2/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- bootstrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- bootstrap links -->
+    <!-- fonts links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- fonts links -->
+    <style>
+      #snackbar, #snackbar-error{
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 10px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+        border-radius: 15px;
+      }
+      
+      #snackbar.show, #snackbar-error.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;} 
+        to {bottom: 0; opacity: 0;}
+      }
+      
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
+  </style>
+  <style>
+    .fixed-sidebar {
+      position: sticky;
+      top: 0;
+      width: 23%;
+      /* Adjust the width as per your layout */
+    }
+  
+    .range_container {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 0% auto;
+    }
+  
+    .sliders_control {
+      position: relative;
+      min-height: 50px;
+    }
+  
+    .form_control {
+      padding: 0;
+      margin: 0%;
+      position: relative;
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      font-size: 24px;
+      color: #635a5a;
+    }
+  
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      pointer-events: all;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #C6C6C6;
+      cursor: pointer;
+    }
+  
+    input[type=range]::-moz-range-thumb {
+      -webkit-appearance: none;
+      pointer-events: all;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #C6C6C6;
+      cursor: pointer;
+    }
+  
+    input[type=range]::-webkit-slider-thumb:hover {
+      background: #f7f7f7;
+    }
+  
+    input[type=range]::-webkit-slider-thumb:active {
+      box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+      -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+    }
+  
+    input[type="number"] {
+      color: #8a8383;
+      width: 50px;
+      height: 30px;
+      font-size: 20px;
+      border: none;
+    }
+  
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      opacity: 1;
+    }
+  
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      background-color: #C6C6C6;
+      pointer-events: none;
+    }
+  
+    #fromSlider {
+      height: 0;
+      z-index: 1;
+    }
+  
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  
+    /* Optionally hide the input track for all number inputs */
+    input[type="number"] {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body style="background: #d4f8ea;">
+
+    <!-- top navbar -->
+    <div class="top-navbar ">
+      <% if(session_id){ %>
+     
+      <% }else{ %>
+        <p>WELCOME TO OUR SHOP</p>
+        <div class="icons ">
+            <a href="/login"><img src="./images/register.png" alt="" width="18px">Login</a>
+            <a href="/signup"><img src="./images/register.png" alt="" width="18px">Register</a>
+            <% } %>
+        </div>
+    </div>
+    <!-- top navbar -->
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark" id="navbar">
+        <div class="container-fluid bg-dark">
+
+
+          
+          <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Wathes</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><img src="./images/menu.png" alt="" width="30px"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/display-products">Product</a>
+              </li>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255);">
+                  <% catogery.forEach((cat,i)=>{%>
+                  <li><a class="dropdown-item" href="/catogery-user?id=<%=cat._id %>"><%=cat.catogeryname  %></a></li>
+
+                    <% }) %>
+                  
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+            </ul>
+            <form class="d-flex " id="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success me-5" type="submit">Search</button>
+            </form>
+
+            <div class="d-flex">
+              <div class="d-flex">
+
+                <a style="color: #000;" class="bg-white  p-1 px-2  mt-2 rounded-circle" href="/cart"><span><li class="fa-solid fa-cart-shopping "></li></span></a>
+                <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle  " style="margin-left: -9px;">4</span>
+
+              </div>
+              <div class="d-flex">
+
+                <a style="color: #000;" class="bg-white  p-1 px-2  mt-2 rounded-circle" href=""><span><li class="far fa-heart"></li></span></a>
+                <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle  " style="margin-left: -9px;">4</span>
+
+              </div>
+            </div>
+
+            
+
+            <% if(session_id){ %>
+              <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                      role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-user me-2 "></i>John Doe
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item " href="/userprofile">Profile</a></li>
+                      <!-- <li><a class="dropdown-item " href="#">Settings</a></li> -->
+                      <li><a class="dropdown-item " href="/logout">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <% } %>
+
+         
+
+          </div>
+        </div>
+      </nav>
+    <!-- navbar -->
+    
+
+
+
+
+
+    <div class="container">
+      <div class="row">
+        <!-- Sidebar Start -->
+        <div class="col-md-3 fixed-sidebar mt-5 mb-5 ml-0 ">
+          <form class="mx-3 my-3" id="searchForm" method="GET">
+            <div class="input-group">
+              <input type="search" id="searchInput" name="search" class="form-control" placeholder="Search">
+              <button type="submit" class="btn btn-dark">Search</button>
+            </div>
+          </form>
+    
+          <form method="get" class="mx-3 mt-3">
+            <u><span class="fs-3 u" disabled>Categories</span></u>
+            <div class="">
+              <div>
+                <label>
+                  <a class="fs-5 text-decoration-none text-dark" href="/product?selectedCat="></a>
+                </label>
+              </div>
+                </div>
+                <!-- <button type="button" onclick="getSelectedCategories()" class="btn btn-light">Apply Filters</button> -->
+              </form>  
+              <div class="card-sm rounded" style="background-color: #447490;">
+                <div class="card-header d-flex justify-content-center fs-5">
+                  <p>Price</p>
+                </div>
+                <div class="card-body range_container mt-3">
+                  <div class="sliders_control">
+                      <input id="fromSlider" type="range" value="0" min="0" max="100"/>
+                      <input id="toSlider" type="range" value="100" min="0" max="100"/>
+                  </div>
+                  <div class="card-footer form_control mt-0">
+                      <div class="form_control_container ">
+                          <div class="form_control_container__time fs-6">Min</div>
+                          <input class="form_control_container_time_input" style="background-color: #447490;" type="number" id="fromInput" value="0" min="0" max="100"/>
+                      </div>
+                      <div class="form_control_container">
+                          <div class="form_control_container__time fs-6">Max</div>
+                          <input class="form_control_container_time_input" style="background-color: #447490;" type="number" id="toInput" value="100" min="0" max="100"/>
+                      </div>
+                  </div>
+                      <button class="btn btn-sm btn-secondary" onclick="resetPage()" id="clearFiltersButton">Clear Filters</button>
+              </div>
+              </div>
+        </div>
+        <!-- Sidebar End -->
+        <div class="col-md-9 mb-5 mt-5">
+          
+    <div class="container" id="product-cards">
+      <h1 class="text-center">PRODUCTS</h1>
+      <div class="row" style="margin-top: 30px;">
+        <% product.forEach((product,i)=>{ %>
+        <div class="col-md-3 py-3 py-md-0">
+
+                <div class="card mt-4">
+              <img style="height: 300px;" src="<%=product.image[0]  %>" alt="">
+            <div class="card-body">
+              <h3 class="text-center"><%=product.productname  %></h3>
+              <p class="text-center"><%=product.description  %></p>
+              <div class="star text-center">
+                  
+                    <a class="btn btn-outline-success" href="/productdetiles?id=<%=product._id  %>">shop now</a>
+                    
+                
+                <!-- <i class="fa-solid fa-star checked"></i>
+                 <i class="fa-solid fa-star checked"></i>
+                <i class="fa-solid fa-star checked"></i>
+                <i class="fa-solid fa-star checked"></i>
+                <i class="fa-solid fa-star checked"></i> -->
+              </div>
+              <div class="d-flex justify-content-between">
+              <h2>₹ <%=product.price  %> </h2>
+              <a onclick="Addtocart('<%=product._id  %>')" class=" nav-link text-dark mt-2"><span><li class="fa-solid fa-cart-shopping"></li></span></a>
+            </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+        
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- offer -->
+    <div class="container" id="offer">
+      <div class="row">
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h3>Free Shipping</h3>
+          <p>On order over $1000</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-rotate-left"></i>
+          <h3>Free Returns</h3>
+          <p>Within 30 days</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-truck"></i>
+          <h3>Fast Delivery</h3>
+          <p>World Wide</p>
+        </div>
+        <div class="col-md-3 py-3 py-md-0">
+          <i class="fa-solid fa-thumbs-up"></i>
+          <h3>Big choice</h3>
+          <p>Of products</p>
+        </div>
+      </div>
+    </div>
+    <!-- offer -->
+
+
+
+    <div class=" bg-danger" id="snackbar"> Product add to cart...</div>
+<div id="snackbar-error">this product has no stock left...</div>
+
+
+
+
+
+
+
+
+
+
+    <!-- footer -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Rich Bay Wathes</h3>
+              <p>
+                Malappuram <br>
+                Tirur <br>
+                India <br>
+              </p>
+              <strong>Phone:</strong> +000000000000000 <br>
+              <strong>Email:</strong> richbaywatches@.com <br>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Usefull Links</h4>
+             <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+             </ul>
+            </div>
+
+
+
+           
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+
+             <ul>
+              <li><a href="#">Women's Collection</a></li>
+              <li><a href="#">Men's Collection</a></li>
+              <li><a href="#">Smart Watches</a></li>
+              <li><a href="#">Automatic</a></li>
+              <li><a href="#">Kidis Collection</a></li>
+             </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Social Networks</h4>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+
+              <div class="socail-links mt-3">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-skype"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
+            
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Electronic Shop</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="#">SA coding</a>
+        </div>
+      </div>
+    </footer>
+    <!-- footer -->
+
+
+
+
+
+
+
+    <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+       <!-- axios cdn -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+       <!-- sweet alert cdn -->             
+       <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    
+<script>
+   function Addtocart(id) {
+     axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
+       if(result.data.response){
+         let x = document.getElementById("snackbar");
+         x.className = "show";
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+        }else{
+            let x = document.getElementById("snackbar-error");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+      }
+       })
+     }
+
+
+     function resetPage() {
+    window.location.href = 'http://localhost:3020/product';
+  }
+
+  function controlToInput(toSlider, fromInput, toInput, controlSlider) {
+    const [from, to] = getParsed(fromInput, toInput);
+    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    setToggleAccessible(toInput);
+    if (from <= to) {
+      toSlider.value = to;
+      toInput.value = to;
+    } else {
+      toInput.value = from;
+    }
+  }
+
+  function controlFromSlider(fromSlider, toSlider, fromInput) {
+    const [from, to] = getParsed(fromSlider, toSlider);
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+    if (from > to) {
+      fromSlider.value = to;
+      fromInput.value = to;
+    } else {
+      fromInput.value = from;
+    }
+  }
+
+  function controlToSlider(fromSlider, toSlider, toInput) {
+    const [from, to] = getParsed(fromSlider, toSlider);
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+    setToggleAccessible(toSlider);
+    if (from <= to) {
+      toSlider.value = to;
+      toInput.value = to;
+    } else {
+      toInput.value = from;
+      toSlider.value = from;
+    }
+  }
+
+  function getParsed(currentFrom, currentTo) {
+    const from = parseInt(currentFrom.value, 10);
+    const to = parseInt(currentTo.value, 10);
+    return [from, to];
+  }
+
+  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
+    const rangeDistance = to.max - to.min;
+    const fromPosition = from.value - to.min;
+    const toPosition = to.value - to.min;
+    controlSlider.style.background = `linear-gradient(
+      to right,
+      ${sliderColor} 0%,
+      ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+      ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+      ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} 100%)`;
+  }
+
+  function setToggleAccessible(currentTarget) {
+    const toSlider = document.querySelector('#toSlider');
+    if (Number(currentTarget.value) <= 0) {
+      toSlider.style.zIndex = 2;
+    } else {
+      toSlider.style.zIndex = 0;
+    }
+  }
+
+  const fromSlider = document.querySelector('#fromSlider');
+  const toSlider = document.querySelector('#toSlider');
+  const fromInput = document.querySelector('#fromInput');
+  const toInput = document.querySelector('#toInput');
+  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+  setToggleAccessible(toSlider);
+
+  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
+  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
+  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
+  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+
+  function submitForm() {
+        const searchInput = document.getElementById('searchInput');
+        const searchQuery = searchInput.value.trim(); // Get the search term and remove leading/trailing spaces
+
+        if (searchQuery !== '') {
+          const actionUrl = `/display-products?search=${encodeURIComponent(searchQuery)}`;
+          window.location.href = actionUrl; // Redirect to the updated action URL
+        }else{
+          const actionUrl = `/display-products?search=${""}`;
+          window.location.href = actionUrl; // Redirect to the updated action URL
+        }
+      }
+      function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
+      const [from, to] = getParsed(fromInput, toInput);
+      fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+
+      if (from > to) {
+          fromSlider.value = to;
+          fromInput.value = to;
+      } else {
+          fromSlider.value = from;
+      }
+  }
+</script>
+
+
+</body>
+</html>

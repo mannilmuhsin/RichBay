@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title>Rich bay </title>
+    <style>
+                
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        #snackbar,
+      #snackbar-error,
+      #wishbar,
+      #wishbar-error {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 10px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+        border-radius: 15px;
+      }
+
+      #snackbar.show,
+      #snackbar-error.show,
+      #wishbar.show,
+      #wishbar-error.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+
+      @-webkit-keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+                    class="fas fa-user-secret me-2"></i>Codersbite</div>
+            <div class="list-group list-group-flush my-3">
+                <a href="/admin" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="/admin/addproduct" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-project-diagram me-2"></i>Add Product</a>
+                <a href="/admin/catogerylist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-project-diagram me-2"></i>Catogery</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-chart-line me-2"></i>Analytics</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-paperclip me-2"></i>Salse Reports</a>
+                <a href="/admin/userlist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-shopping-cart me-2"></i>Users</a>
+                <a href="/admin/Productlist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-gift me-2"></i>Products</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-comment-dots me-2"></i>Add coupen</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-map-marker-alt me-2"></i>Offers</a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-power-off me-2"></i>Logout</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">Add coupen</h2>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>John Doe
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+
+    <div class="container-fluid d-flex gap-4" >
+
+
+          
+        <section class="gradient-custom container-fluid ">
+            <div class="container-fluid py-5 h-100 row justify-content-center align-items-center">
+                    <div class="col-12 col-lg-9 col-xl-8">
+                        <div class="card shadow-2-strong card-registration">
+                            <div class="card-body shadow" style="background-color: #EBEBEB;border-radius: 5px;">
+                                
+                                <form class="d-flex flex-column align-items-center mt-3" id="form">
+                                    
+                                    <div class="mb-4">
+                                        <div class="fw-bold text-center fs-5 text-uppercase mb-1">Create coupon</div>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="name">Coupon Name</label>
+                                            <input type="text" id="name" name="name" style="box-shadow: none;" class="form-control" required/>
+                                        </div>
+
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="expiryDate">Expiry Date</label>
+                                            <input type="date" minDate="today" id="expiryDate" name="expiryDate" style="box-shadow: none;" class="form-control" required/>
+                                        </div>
+                                        
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="discount">Discount</label>
+                                            <input type="number" min="1" id="discount" name="discount" style="box-shadow: none;" class="form-control"  required/>
+                                        </div>
+
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="discount">Minimum Amount</label>
+                                            <input type="number" min="0" id="minAmount" name="minAmount" style="box-shadow: none;" class="form-control"  required/>
+                                        </div>
+                      
+                                      </div>
+    
+                                      <div id="error-field" class="text-danger"></div>
+    
+                                    <button type="submit" style="background-color: #7FAD39;color: #fff;width: 200px;" class="btn fw-normal p-10 mb-3 mt-3">Add</button>
+        
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <b id="snackbar-error">Coupon Name already Existed</b>
+            
+
+       
+    </div>
+
+
+
+
+
+   
+
+            
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+    
+    <!-- axios cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+     <script>
+        const form = document.getElementById('form');
+        
+        const name = document.getElementById('name')
+        const discount = document.getElementById('discount');
+        const expiryDate = document.getElementById('expiryDate');
+        const minAmount = document.getElementById('minAmount');
+
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+
+
+            axios({
+                method: "post",
+                url: "/admin/addcoupen",
+                data: {
+                    name: name.value,
+                    discount: discount.value,
+                    expiryDate: new Date(expiryDate.value),
+                    minimumAmount: minAmount.value,
+                }
+            })
+            .then((result)=>{
+                if(result.data.response){
+                    location.href= "/admin/coupens"
+                }else{
+                    let x = document.getElementById("snackbar-error");
+                    x.className = "show";
+                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                }
+            })
+
+        })
+        
+    </script>
+
+    <script>
+        // Get the current date and format it as "YYYY-MM-DD" to match the input date format
+        const currentDate = new Date().toISOString().split('T')[0];
+      
+        // Get the input element
+        const endDateInput = document.getElementById('expiryDate');
+      
+        // Set the minimum attribute to the current date
+        endDateInput.setAttribute('min', currentDate);
+      </script>
+</body>
+
+</html>

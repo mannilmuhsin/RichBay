@@ -4,6 +4,7 @@ const catogery=require('../../model/catogery/catogerymodel');
 const productmodel = require('../../model/product/productmodel');
 const product=require('../../model/product/productmodel');
 const { findOne } = require('../../model/user/usermodel');
+const slugify=require('slugify')
 const cloudinary=require('cloudinary').v2
 
 
@@ -54,9 +55,10 @@ const creareproduct=async(req,res)=>{
         
         const file=req.files.image
         const urllist= await multipleimage(file)
+        const slug=slugify(req.body.productName)
        
             
-console.log(urllist)
+// console.log(urllist)
 
         const newproduct=await new product({
             productname:req.body.productName,
@@ -64,7 +66,8 @@ console.log(urllist)
             price:req.body.price,
             quantity:req.body.quantity,
             description:req.body.description,
-            image:urllist
+            image:urllist,
+            slug:slug
         })
     if(urllist[0]){
         const paroduct=await newproduct.save()

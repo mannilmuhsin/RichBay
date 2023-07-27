@@ -2,6 +2,7 @@ const { render } = require('ejs')
 const express=require('express')
 const adminrouter=express.Router()
 const adminController=require('../../controllers/admin/admincontroler')
+const coupenController=require('../../controllers/coupen/coupencontroller')
 const catogerycontroller=require('../../controllers/catogery/catogerycontroler')
 const midlewear=require('../../miidlewears/midelwears')
 
@@ -19,9 +20,15 @@ adminrouter.get('/editcatogery',midlewear.isadmin,catogerycontroller.loadedite)
 adminrouter.get('/deleteorder',midlewear.isadmin,adminController.cancelorder)
 adminrouter.get('/changesatatus',midlewear.isadmin,adminController.changestatus)
 adminrouter.get('/orderdetiles',midlewear.isadmin,adminController.loadorderdetailes)
+adminrouter.get('/coupens',midlewear.isadmin,coupenController.loadCoupon)
+adminrouter.get('/addcoupen',midlewear.isadmin,coupenController.loadAddCoupon)
+adminrouter.get('/editcoupen',midlewear.isadmin,coupenController.loadEditCoupon)
 
 
 
+
+adminrouter.post('/editcoupen',midlewear.isadmin,coupenController.editCoupon)
+adminrouter.post('/addcoupen',midlewear.isadmin,coupenController.addCoupon)
 adminrouter.post('/editaccess',adminController.editaccess)
  adminrouter.post('/login',adminController.verifyadmin)
  adminrouter.post('/addcatogery',catogerycontroller.createcatogery)
