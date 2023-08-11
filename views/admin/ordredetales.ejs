@@ -161,7 +161,7 @@
                                             <tr class="bg-light">
                                                 <td class="product-thumbnail text-start">
                                                     <a href="#"><img
-                                                            src="<%=order.orderitems[i].product.image[0] %>"
+                                                            src="<%=order.orderitems[i].product.image[0].url %>"
                                                             alt="..." class="img-fluid" width="60vw"></a>
                                                 </td>
                                                 <td class="text-center" style="font-size: 1.2vw;">
@@ -212,6 +212,7 @@
                             </div>
                             <div class="card-body">
                                 <% if(order.Paymentmethod == "COD"){ %> Cash On Delivery <% } %>
+                                <% if(order.Paymentmethod == "OnlinePayment"){ %> OnlinePayment <% } %>
                             </div>
                           </div>
                       </div>

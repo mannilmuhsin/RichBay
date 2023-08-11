@@ -198,6 +198,10 @@
                                             <label class="form-label" for="discount">Minimum Amount</label>
                                             <input type="number" min="0" id="minAmount" name="minAmount" style="box-shadow: none;" class="form-control"  required/>
                                         </div>
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="discount">Maximum Amount</label>
+                                            <input type="number" min="0" id="maxAmount" name="maxAmount" style="box-shadow: none;" class="form-control"  required/>
+                                        </div>
                       
                                       </div>
     
@@ -248,6 +252,7 @@
         const discount = document.getElementById('discount');
         const expiryDate = document.getElementById('expiryDate');
         const minAmount = document.getElementById('minAmount');
+        const maxAmount = document.getElementById('maxAmount');
 
         form.addEventListener('submit',(e)=>{
             e.preventDefault();
@@ -261,6 +266,7 @@
                     discount: discount.value,
                     expiryDate: new Date(expiryDate.value),
                     minimumAmount: minAmount.value,
+                    maximumAmount: maxAmount.value,
                 }
             })
             .then((result)=>{

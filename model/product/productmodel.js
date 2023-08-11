@@ -24,10 +24,16 @@ const productschema=new schema({
         type:String,
         required:true
     },
-    image:{
-        type:Object,
-        required:true
-    },
+    image:[{
+        url:{
+            type:String,
+            required:true
+        },
+        public_id:{
+            type:String,
+            required:true
+        }
+    }],
     slug:{
         type:String,
         required:true,
@@ -35,7 +41,7 @@ const productschema=new schema({
     },
     color:{
         type:String,
-        enum:["Black","White","Gold","Silver"]
+       
     },
     ratings:[{
         star:Number,
@@ -43,7 +49,11 @@ const productschema=new schema({
     }],
     brand:{
         type:String,
-        enum:["G-shock","Tissot","Rado"]
+        
+    },
+    date:{
+        type:Date,
+        default:Date.now()
     },
     sold:{
         type:Number,

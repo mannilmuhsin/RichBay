@@ -18,6 +18,17 @@ const coupenschema= new mongoose.Schema({
     minAmount:{
         type:Number,
         required:true
+    },
+    maxAmount:{
+        type:Number,
+        required:true
+    },
+    valid:{
+        type:Boolean,
+        default:true
+    },
+    slug:{
+        type:String
     }
 })
 

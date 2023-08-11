@@ -24,9 +24,9 @@
                         class="fas fa-project-diagram me-2"></i>Add Product</a>
                 <a href="/admin/catogerylist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-project-diagram me-2"></i>Catogery</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/admin/dash-bord" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Analytics</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/admin/salse-report" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-paperclip me-2"></i>Salse Reports</a>
                 <a href="/admin/userlist" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-shopping-cart me-2"></i>Users</a>
@@ -36,6 +36,8 @@
                         class="fas fa-comment-dots me-2"></i>Coupens</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-map-marker-alt me-2"></i>Offers</a>
+                <a href="/admin/banner" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-map-marker-alt me-2"></i>Banner</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
@@ -147,15 +149,22 @@
                                     <td >
                                      <%=c  %>
                                     </td>
-                                    <td><%=order.user.username  %></td>
+                                    <td><%=  %></td>
                                     <td>₹ <%=order.totalprice  %></td>
 
                                     <td>
+                                        <% if(order.status!=='cancelled'&&order.status!=='Deliverd'){ %>
                                         <select name="status" onchange="Changestatus(this)" class="form-select form-select-sm input-sm shadow-none"  id="status" data-orderid="<%= order._id %>" >
-                                            <option    <% if(order.status=='Pending'){%>selected<%} %>>Pending</option>
-                                            <option  value="Shipped"  <% if(order.status=='Shipped'){%>selected<%} %>>Shipped</option>
-                                            <option   value="Deliverd" <% if(order.status=='Deliverd'){%>selected<%} %>>Deliverd</option>
-                                        </select>
+                                                <option    <% if(order.status=='Pending'){%>selected<%} %>>Pending</option>
+                                                <option  value="Shipped"  <% if(order.status=='Shipped'){%>selected<%} %>>Shipped</option>
+                                                <option   value="Deliverd" <% if(order.status=='Deliverd'){%>selected<%} %>>Deliverd</option>
+                                            </select>
+                                            <% }else{ %>
+                                                <% if(order.status=='Deliverd'){ %>
+                                                <p>Deliverd</p>
+                                                <% }else{ %>
+                                                    <p>cancelled</p>
+                                                    <% }} %>
                                     </td>
 
                                     <td><a class="btn btn-outline-dark" href="/admin/orderdetiles?id=<%=order._id  %>">View</a></td>

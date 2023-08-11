@@ -4,6 +4,8 @@ const adminrouter=express.Router()
 const adminController=require('../../controllers/admin/admincontroler')
 const coupenController=require('../../controllers/coupen/coupencontroller')
 const catogerycontroller=require('../../controllers/catogery/catogerycontroler')
+const bannercontroller=require('../../controllers/banner/bannercontroller')
+const dashbordcontroller=require('../../controllers/dashbord/dashbordcontroller')
 const midlewear=require('../../miidlewears/midelwears')
 
 
@@ -23,10 +25,18 @@ adminrouter.get('/orderdetiles',midlewear.isadmin,adminController.loadorderdetai
 adminrouter.get('/coupens',midlewear.isadmin,coupenController.loadCoupon)
 adminrouter.get('/addcoupen',midlewear.isadmin,coupenController.loadAddCoupon)
 adminrouter.get('/editcoupen',midlewear.isadmin,coupenController.loadEditCoupon)
+adminrouter.get('/addbanner',midlewear.isadmin,bannercontroller.loadAddBanner)
+adminrouter.get('/banner',midlewear.isadmin,bannercontroller.loadBanner)
+adminrouter.get('/dash-bord',midlewear.isadmin,dashbordcontroller.loadDashboard)
+adminrouter.get('/salse-report',midlewear.isadmin,dashbordcontroller.loadSalesReport)
+adminrouter.get('/edit-product-image',midlewear.isadmin,catogerycontroller.loadeditproductimage)
 
 
 
 
+adminrouter.post('/sale/daily',midlewear.isadmin,dashbordcontroller.dailySalesReport)
+adminrouter.post('/sale/monthly',midlewear.isadmin,dashbordcontroller.monthlySaleReport)
+adminrouter.post('/addbanner',midlewear.isadmin,bannercontroller.addBanner)
 adminrouter.post('/editcoupen',midlewear.isadmin,coupenController.editCoupon)
 adminrouter.post('/addcoupen',midlewear.isadmin,coupenController.addCoupon)
 adminrouter.post('/editaccess',adminController.editaccess)
@@ -36,6 +46,7 @@ adminrouter.post('/editaccess',adminController.editaccess)
  adminrouter.post('/editproduct',catogerycontroller.editproduct)
  adminrouter.post('/addproduct',catogerycontroller.creareproduct)
  adminrouter.delete('/deleteproduct',midlewear.isadmin,catogerycontroller.deleteproduct)
+ adminrouter.delete('/product-image-delete',midlewear.isadmin,catogerycontroller.deleteProductImage)
 
  module.exports=adminrouter
  

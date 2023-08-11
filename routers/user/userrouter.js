@@ -5,6 +5,7 @@ const usercontroller=require('../../controllers/user/usercontroler')
 const cartcontroller=require('../../controllers/cartcontroller/cartcontroller')
 const catogerycontroller=require('../../controllers/catogery/catogerycontroler')
 const ordercontroller=require('../../controllers/order/ordercontroller')
+const walletcontroller=require('../../controllers/wallet/walletcontroller')
 const coupencontroller=require('../../controllers/coupen/coupencontroller')
 const midelwear=require('../../miidlewears/midelwears')
 
@@ -35,9 +36,15 @@ userrouter.get('/display-products',usercontroller.displayfullproduct)
 userrouter.get('/success',usercontroller.loadsuccess)
 userrouter.get('/wish-list-handle',usercontroller.wishlisthandle)
 userrouter.get('/wish-list',usercontroller.load_wish_list)
+userrouter.get('/order-detiles',usercontroller.load_orderlist)
+userrouter.get('/coupen-check',coupencontroller.isvalid)
+userrouter.get('/wallet',walletcontroller.loadWallet)
 
 
 
+
+userrouter.post('/return',ordercontroller.orderReturn)
+userrouter.post('/display-products',usercontroller.displayfullproductinpost)
 userrouter.post('/list-search-porduct',usercontroller.list_search_product)
 userrouter.post('/addtocart',cartcontroller.addtocart)
 userrouter.post('/signup',usercontroller.createUser)

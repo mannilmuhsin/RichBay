@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rich Bay</title>
+  <link rel="stylesheet" href="/style2/style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <!-- bootstrap links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- bootstrap links -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+  <!-- fonts links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <!-- fonts links -->
+  <style>
+    .order-summary {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #eaeaea;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+    }
+
+    .order-summary .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .order-summary .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .order-summary .item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .order-summary .item-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .order-summary .item-price {
+      font-size: 16px;
+      color: #888888;
+      margin-bottom: 5px;
+    }
+
+    .order-summary .total {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .order-summary .btn {
+      margin-top: 20px;
+    }
+
+    .address-card {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      width: 300px;
+      margin-bottom: 10px;
+    }
+
+    .address-card label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .address-card p {
+      margin: 0;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body style="background: #d4f8ea;">
+
+
+  <!-- top navbar -->
+  <div class="top-navbar">
+    <% if(user){ %>
+      <% }else{ %>
+        <p>WELCOME TO OUR SHOP</p>
+        <div class="icons">
+          <a href="/login"><img src="./images/register.png" alt="" width="18px" />Login</a>
+          <a href="/signup"><img src="./images/register.png" alt="" width="18px" />Register</a>
+          <% } %>
+        </div>
+  </div>
+  <!-- top navbar -->
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark" id="navbar">
+    <div class="container-fluid bg-dark">
+      <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Watches</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span><img src="./images/menu.png" alt="" width="30px" /></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/display-products">Product</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Category
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255)">
+              <% catogery.forEach((cat,i)=>{%>
+                <li>
+                  <a class="dropdown-item" href="/display-products?categoryId=<%=cat._id %>">
+                    <%=cat.catogeryname %>
+                  </a>
+                </li>
+
+                <% }) %>
+            </ul>
+          </li>
+
+        </ul>
+        <form action="" method="" class=" d-flex " id="searchForm">
+          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn btn-outline-success me-5" type="submit">
+            Search
+          </button>
+        </form>
+
+        <div class="d-flex">
+          <div class="d-flex">
+            <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="/cart"><span>
+                <li class="fa-solid fa-cart-shopping"></li>
+              </span></a>
+            <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+              style="margin-left: -9px">4</span>
+          </div>
+          <div class="d-flex">
+            <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="wish-list"><span>
+                <li class="far fa-heart"></li>
+              </span></a>
+            <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+              style="margin-left: -9px">4</span>
+          </div>
+        </div>
+
+        <% if(user){ %>
+          <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user me-2"></i>
+                    <%=user.username %>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <a class="dropdown-item" href="/userprofile">Profile</a>
+                    </li>
+                    <li><a class="dropdown-item " href="/wallet">Wallet</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <% } %>
+      </div>
+    </div>
+  </nav>
+  <!-- navbar -->
+
+  <div class="container mt-5" style="width: auto;">
+    <div class="invoice">
+      <div class="card mx-3">
+        <div class="card-header">
+          Order details<br><small>Your order items</small>
+        </div>
+        <div class="card-body" style="overflow: auto;">
+          <table class="table text-center table-primary">
+            <colgroup>
+              <col width="100" />
+              <col />
+              <col width="1" />
+              <col />
+              <col width="100" />
+              <col />
+              <col width="1" />
+              <col />
+
+            </colgroup>
+            <thead class="bg-primary text-dark">
+              <tr>
+                <th class="first">Image</th>
+                <th class="text-center font-weight-500">Product</th>
+                <th class="text-center  font-weight-500">Price</th>
+                <th class="text-center  font-weight-500">Qty</th>
+                <th class="text-start  font-weight-500">Total</th>
+              </tr>
+            </thead>
+            <tbody class="table-bordered">
+              <% for( let i=0; i < order.orderitems.length; i++ ) { %>
+                <tr class="bg-light">
+                  <td class="product-thumbnail text-start">
+                    <a href="#"><img src="<%=order.orderitems[i].product.image[0].url %>" alt="..." class="img-fluid"
+                        width="60vw"></a>
+                  </td>
+                  <td class="text-center" style="font-size: 1.2vw;">
+                    <b href="#" class="text-dark ">
+                      <%=order.orderitems[i].product.productname %>
+                    </b>
+                  </td>
+                  <td class="text-center text-dark" style="font-size: 1vw;">
+                    <%=order.orderitems[i].product.price %>
+                  </td>
+                  <td class="text-center" style="font-size: 1vw;"><span>
+                      <%=order.orderitems[i].quantity %>
+                    </span>
+                  </td>
+                  <td id="totalPrice" class="product-subtotal text-center" style="font-size: 1vw;">
+                    <span>₹<%=(order.orderitems[i].quantity * order.orderitems[i].product.price).toFixed(2) %></span>
+                  </td>
+                </tr>
+                <% } %>
+            </tbody>
+
+          </table>
+        </div>
+        <p style=" position: absolute;
+                    bottom: -2%;
+                    right: 2%;">Total:<%=order.totalprice %>
+        </p>
+      </div>
+      <div class="card m-3">
+        <div class="card-header">
+          Shipping Address
+        </div>
+        <div class="card-body">
+
+          <p class="card-text">
+            Name :<%=order.shippingaddress.name %> ,
+              <br>
+              Mobile No :<%=order.shippingaddress.mobile %>,
+                <br>
+                pin :<%=order.shippingaddress.pin %>,
+                  <br>
+                  address :<%=order.shippingaddress.address %>,
+                    <br>
+                    city :<%=order.shippingaddress.city %>,
+                      <br>
+                      state :<%=order.shippingaddress.state %>
+          </p>
+
+        </div>
+      </div>
+      <div class="card m-3">
+        <div class="card-header">
+          Payment Mode
+        </div>
+        <div class="card-body">
+          <%=order.Paymentmethod %>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-center">
+
+      <a href="/userprofile" class="p-2 rounded btn-outline-dark">Back</a>
+      <a href="javascript:printInvoice()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- footer -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Rich Bay Wathes</h3>
+            <p>
+              Malappuram <br>
+              Tirur <br>
+              India <br>
+            </p>
+            <strong>Phone:</strong> +000000000000000 <br>
+            <strong>Email:</strong> richbaywatches@.com <br>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Usefull Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+            </ul>
+          </div>
+
+
+
+
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+
+            <ul>
+              <li><a href="#">Women's Collection</a></li>
+              <li><a href="#">Men's Collection</a></li>
+              <li><a href="#">Smart Watches</a></li>
+              <li><a href="#">Automatic</a></li>
+              <li><a href="#">Kidis Collection</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+
+            <div class="socail-links mt-3">
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-skype"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Rich bay Watches</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="#">SA coding</a>
+      </div>
+    </div>
+  </footer>
+  <!-- footer -->
+
+
+
+
+
+
+
+  <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- axios cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+  <script>
+    function printInvoice() {
+      var invoiceContent = document.querySelector(".invoice");
+      var popupWin = window.open("", "_blank", "width=600,height=600");
+      popupWin.document.open();
+      popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles.css"></head><body onload="window.print()">' + invoiceContent.innerHTML + '</body></html>');
+      popupWin.document.close();
+    }
+  </script>
+
+
+</body>
+
+</html>

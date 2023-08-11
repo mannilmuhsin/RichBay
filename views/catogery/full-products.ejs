@@ -1,360 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronic Shop</title>
-    <link rel="stylesheet" href="/style2/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <!-- bootstrap links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- bootstrap links -->
-    <!-- fonts links -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
-    <!-- fonts links -->
-    <style>
-      #snackbar, #snackbar-error{
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 10px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic Shop</title>
+  <link rel="stylesheet" href="/style2/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <!-- bootstrap links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- bootstrap links -->
+  <!-- fonts links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <!-- fonts links -->
+
+
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--===============================================================================================-->
+
+  <style>
+    #snackbar,
+    #snackbar-error {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 10px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      border-radius: 15px;
+    }
+
+    #snackbar.show,
+    #snackbar-error.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
         bottom: 30px;
-        font-size: 17px;
-        border-radius: 15px;
+        opacity: 1;
       }
-      
-      #snackbar.show, #snackbar-error.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
       }
-      
-      @-webkit-keyframes fadein {
-        from {bottom: 0; opacity: 0;} 
-        to {bottom: 30px; opacity: 1;}
+
+      to {
+        bottom: 30px;
+        opacity: 1;
       }
-      
-      @keyframes fadein {
-        from {bottom: 0; opacity: 0;}
-        to {bottom: 30px; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
       }
-      
-      @-webkit-keyframes fadeout {
-        from {bottom: 30px; opacity: 1;} 
-        to {bottom: 0; opacity: 0;}
+
+      to {
+        bottom: 0;
+        opacity: 0;
       }
-      
-      @keyframes fadeout {
-        from {bottom: 30px; opacity: 1;}
-        to {bottom: 0; opacity: 0;}
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
       }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
   </style>
   <style>
-    .fixed-sidebar {
-      position: sticky;
-      top: 0;
-      width: 23%;
-      /* Adjust the width as per your layout */
-    }
-  
-    .range_container {
-      display: flex;
-      flex-direction: column;
-      width: 80%;
-      margin: 0% auto;
-    }
-  
-    .sliders_control {
-      position: relative;
-      min-height: 50px;
-    }
-  
-    .form_control {
+    /* Style to align checkboxes and labels in one line */
+    .filter-col1 ul,
+    .filter-col2 ul,
+    .filter-col3 ul,
+    .filter-col4 ul {
+      list-style-type: none;
       padding: 0;
-      margin: 0%;
-      position: relative;
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      font-size: 24px;
-      color: #635a5a;
     }
-  
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      pointer-events: all;
-      width: 24px;
-      height: 24px;
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 0 0 1px #C6C6C6;
-      cursor: pointer;
+
+    .filter-col1 ul li,
+    .filter-col2 ul li,
+    .filter-col3 ul li,
+    .filter-col4 ul li {
+      padding-bottom: 6px;
     }
-  
-    input[type=range]::-moz-range-thumb {
-      -webkit-appearance: none;
-      pointer-events: all;
-      width: 24px;
-      height: 24px;
-      background-color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 0 0 1px #C6C6C6;
-      cursor: pointer;
+
+    .filter-col1 label,
+    .filter-col2 label,
+    .filter-col3 label,
+    .filter-col4 label {
+      display: inline-flex;
+      align-items: center;
     }
-  
-    input[type=range]::-webkit-slider-thumb:hover {
-      background: #f7f7f7;
-    }
-  
-    input[type=range]::-webkit-slider-thumb:active {
-      box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-      -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-    }
-  
-    input[type="number"] {
-      color: #8a8383;
-      width: 50px;
-      height: 30px;
-      font-size: 20px;
-      border: none;
-    }
-  
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      opacity: 1;
-    }
-  
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      height: 2px;
-      width: 100%;
-      position: absolute;
-      background-color: #C6C6C6;
-      pointer-events: none;
-    }
-  
-    #fromSlider {
-      height: 0;
-      z-index: 1;
-    }
-  
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  
-    /* Optionally hide the input track for all number inputs */
-    input[type="number"] {
-      overflow: hidden;
+
+    .filter-col1 input[type="checkbox"],
+    .filter-col2 input[type="checkbox"],
+    .filter-col3 input[type="checkbox"],
+    .filter-col4 input[type="checkbox"] {
+      margin-right: 5px;
     }
   </style>
+
+
 </head>
+
 <body style="background: #d4f8ea;">
 
-    <!-- top navbar -->
-    <div class="top-navbar ">
-      <% if(session_id){ %>
-     
-      <% }else{ %>
-        <p>WELCOME TO OUR SHOP</p>
-        <div class="icons ">
-            <a href="/login"><img src="./images/register.png" alt="" width="18px">Login</a>
-            <a href="/signup"><img src="./images/register.png" alt="" width="18px">Register</a>
-            <% } %>
-        </div>
-    </div>
-    <!-- top navbar -->
+  
+ <!-- top navbar -->
+ <div class="top-navbar">
+  <% if(user){ %>
+    <% }else{ %>
+      <p>WELCOME TO OUR SHOP</p>
+      <div class="icons">
+        <a href="/login"><img src="./images/register.png" alt="" width="18px" />Login</a>
+        <a href="/signup"><img src="./images/register.png" alt="" width="18px" />Register</a>
+        <% } %>
+      </div>
+</div>
+<!-- top navbar -->
 
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark" id="navbar">
-        <div class="container-fluid bg-dark">
-
-
-          
-          <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Wathes</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span><img src="./images/menu.png" alt="" width="30px"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/display-products">Product</a>
-              </li>
-              <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Category
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg bg-dark" id="navbar">
+  <div class="container-fluid bg-dark">
+    <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Watches</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><img src="./images/menu.png" alt="" width="30px" /></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/display-products">Product</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255)">
+            <% catogery.forEach((cat,i)=>{%>
+              <li>
+                <a class="dropdown-item" href="/display-products?categoryId=<%=cat._id %>">
+                  <%=cat.catogeryname %>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255);">
-                  <% catogery.forEach((cat,i)=>{%>
-                  <li><a class="dropdown-item" href="/catogery-user?id=<%=cat._id %>"><%=cat.catogeryname  %></a></li>
+              </li>
 
-                    <% }) %>
-                  
+              <% }) %>
+          </ul>
+        </li>
+
+      </ul>
+      <!-- <form action="" method="" class=" d-flex " id="searchForm">
+        <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success me-5" type="submit">
+          Search
+        </button>
+      </form> -->
+
+      <div class="d-flex">
+        <div class="d-flex">
+          <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="/cart"><span>
+              <li class="fa-solid fa-cart-shopping"></li>
+            </span></a>
+          <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+            style="margin-left: -9px">4</span>
+        </div>
+        <div class="d-flex">
+          <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="wish-list"><span>
+              <li class="far fa-heart"></li>
+            </span></a>
+          <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+            style="margin-left: -9px">4</span>
+        </div>
+      </div>
+
+      <% if(user){ %>
+        <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-user me-2"></i>
+                  <%=user.username %>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="/userprofile">Profile</a>
+                  </li>
+                  <li><a class="dropdown-item " href="/wallet">Wallet</a></li>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
               </li>
             </ul>
-            <form class="d-flex " id="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success me-5" type="submit">Search</button>
-            </form>
+          </div>
+        </nav>
+        <% } %>
+    </div>
+  </div>
+</nav>
+<!-- navbar -->
 
-            <div class="d-flex">
-              <div class="d-flex">
 
-                <a style="color: #000;" class="bg-white  p-1 px-2  mt-2 rounded-circle" href="/cart"><span><li class="fa-solid fa-cart-shopping "></li></span></a>
-                <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle  " style="margin-left: -9px;">4</span>
 
-              </div>
-              <div class="d-flex">
 
-                <a style="color: #000;" class="bg-white  p-1 px-2  mt-2 rounded-circle" href=""><span><li class="far fa-heart"></li></span></a>
-                <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle  " style="margin-left: -9px;">4</span>
 
-              </div>
-            </div>
 
-            
 
-            <% if(session_id){ %>
-              <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
-                      role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-user me-2 "></i>John Doe
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item " href="/userprofile">Profile</a></li>
-                      <!-- <li><a class="dropdown-item " href="#">Settings</a></li> -->
-                      <li><a class="dropdown-item " href="/logout">Logout</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-            <% } %>
 
-         
 
+  <!-- Product -->
+  <div class=" m-t-23 ">
+    <div class="container">
+      <div class="flex-w flex-sb-m p-b-52">
+        <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+          <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+            All Products
+          </button>
+
+          <% catogery.forEach((cat,i)=>{ %>
+
+            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="<%=cat._id  %>">
+              <%=cat.catogeryname %>
+            </button>
+            <% }) %>
+
+              <!-- <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+						Men
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
+						Bag
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
+						Shoes
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
+						Watches
+					</button> -->
+        </div>
+
+        <div class="flex-w flex-c-m m-tb-10">
+          <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+            <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+            <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+            Filter
+          </div>
+
+          <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+            <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+            <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+            Search
           </div>
         </div>
-      </nav>
-    <!-- navbar -->
-    
 
+        <!-- Search product -->
+        <div class="dis-none panel-search w-full p-t-10 p-b-15">
+          <div class="bor8 dis-flex p-l-15">
+            <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+              <i class="zmdi zmdi-search"></i>
+            </button>
 
-
-
-
-    <div class="container">
-      <div class="row">
-        <!-- Sidebar Start -->
-        <div class="col-md-3 fixed-sidebar mt-5 mb-5 ml-0 ">
-          <form class="mx-3 my-3" id="searchForm" method="GET">
-            <div class="input-group">
-              <input type="search" id="searchInput" name="search" class="form-control" placeholder="Search">
-              <button type="submit" class="btn btn-dark">Search</button>
-            </div>
-          </form>
-    
-          <form method="get" class="mx-3 mt-3">
-            <u><span class="fs-3 u" disabled>Categories</span></u>
-            <div class="">
-              <div>
-                <label>
-                  <a class="fs-5 text-decoration-none text-dark" href="/product?selectedCat="></a>
-                </label>
-              </div>
-                </div>
-                <!-- <button type="button" onclick="getSelectedCategories()" class="btn btn-light">Apply Filters</button> -->
-              </form>  
-              <div class="card-sm rounded" style="background-color: #447490;">
-                <div class="card-header d-flex justify-content-center fs-5">
-                  <p>Price</p>
-                </div>
-                <div class="card-body range_container mt-3">
-                  <div class="sliders_control">
-                      <input id="fromSlider" type="range" value="0" min="0" max="100"/>
-                      <input id="toSlider" type="range" value="100" min="0" max="100"/>
-                  </div>
-                  <div class="card-footer form_control mt-0">
-                      <div class="form_control_container ">
-                          <div class="form_control_container__time fs-6">Min</div>
-                          <input class="form_control_container_time_input" style="background-color: #447490;" type="number" id="fromInput" value="0" min="0" max="100"/>
-                      </div>
-                      <div class="form_control_container">
-                          <div class="form_control_container__time fs-6">Max</div>
-                          <input class="form_control_container_time_input" style="background-color: #447490;" type="number" id="toInput" value="100" min="0" max="100"/>
-                      </div>
-                  </div>
-                      <button class="btn btn-sm btn-secondary" onclick="resetPage()" id="clearFiltersButton">Clear Filters</button>
-              </div>
-              </div>
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+          </div>
         </div>
-        <!-- Sidebar End -->
-        <div class="col-md-9 mb-5 mt-5">
-          
-    <div class="container" id="product-cards">
-      <h1 class="text-center">PRODUCTS</h1>
-      <div class="row" style="margin-top: 30px;">
-        <% product.forEach((product,i)=>{ %>
-        <div class="col-md-3 py-3 py-md-0">
 
-                <div class="card mt-4">
-              <img style="height: 300px;" src="<%=product.image[0]  %>" alt="">
-            <div class="card-body">
-              <h3 class="text-center"><%=product.productname  %></h3>
-              <p class="text-center"><%=product.description  %></p>
-              <div class="star text-center">
-                  
-                    <a class="btn btn-outline-success" href="/productdetiles?id=<%=product._id  %>">shop now</a>
-                    
-                
-                <!-- <i class="fa-solid fa-star checked"></i>
-                 <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i> -->
+        <!-- Filter -->
+        <div class="dis-none panel-filter w-full p-t-10"></div>
+        <div class="dis-none panel-filter w-full p-t-10">
+          <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+            <div class="filter-col1 p-r-15 p-b-27">
+              <div class="mtext-102 cl2 p-b-15">
+                Sort By
               </div>
-              <div class="d-flex justify-content-between">
-              <h2>₹ <%=product.price  %> </h2>
-              <a onclick="Addtocart('<%=product._id  %>')" class=" nav-link text-dark mt-2"><span><li class="fa-solid fa-cart-shopping"></li></span></a>
+
+              <ul>
+                <!-- <li class="p-b-6">
+                      <label>
+                          <input type="radio" name="sort-option" value="default" class="filter-radio stext-106 trans-04">
+                          Default
+                      </label>
+                  </li> -->
+
+                <!-- <li class="p-b-6">
+                      <label>
+                          <input type="radio" name="sort-option" value="popularity" class="filter-radio stext-106 trans-04">
+                          Popularity
+                      </label>
+                  </li> -->
+
+                <!-- <li class="p-b-6">
+                      <label>
+                          <input type="radio" name="sort-option" value="rating" class="filter-radio stext-106 trans-04">
+                          Average rating
+                      </label>
+                  </li>
+          
+                  <li class="p-b-6">
+                      <label>
+                          <input type="radio" name="sort-option" value="newness" class="filter-radio stext-106 trans-04"
+                              checked>
+                          Newness
+                      </label>
+                  </li> -->
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="radio" name="sort-option" value="price-low-high"
+                      class="filter-radio stext-106 trans-04">
+                    Price: Low to High
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="radio" name="sort-option" value="price-high-low"
+                      class="filter-radio stext-106 trans-04">
+                    Price: High to Low
+                  </label>
+                </li>
+              </ul>
             </div>
+
+            <div class="filter-col2 p-r-15 p-b-27">
+              <div class="mtext-102 cl2 p-b-15">
+                Price
+              </div>
+
+              <ul>
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="0-1000"
+                      class="filter-checkbox stext-106 trans-04">
+                    to 1000
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="1000-2000"
+                      class="filter-checkbox stext-106 trans-04">
+                    $1000.00 - $2000.00
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="2000-5000"
+                      class="filter-checkbox stext-106 trans-04">
+                    $2000.00 - $5000.00
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="5000-10000"
+                      class="filter-checkbox stext-106 trans-04">
+                    $5000.00 - $10000.00
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="10000-20000"
+                      class="filter-checkbox stext-106 trans-04">
+                    $10000.00 - $20000.00
+                  </label>
+                </li>
+
+                <li class="p-b-6">
+                  <label>
+                    <input type="checkbox" name="price-option" value="0-9000000"
+                      class="filter-checkbox stext-106 trans-04">
+                    20000.00+
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <!-- 
+        <div class="filter-col3 p-r-15 p-b-27">
+          <div class="mtext-102 cl2 p-b-15">
+              Color
+          </div>
+      
+          <ul>
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="black" class="filter-checkbox stext-106 trans-04">
+                      <span class="fs-15 lh-12 m-r-6" style="color: #222;">
+                          <i class="zmdi zmdi-circle"></i>
+                      </span>
+                      Black
+                  </label>
+              </li>
+      
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="blue" class="filter-checkbox stext-106 trans-04"
+                          >
+                      <span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
+                          <i class="zmdi zmdi-circle"></i>
+                      </span>
+                      Blue
+                  </label>
+              </li>
+      
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="grey" class="filter-checkbox stext-106 trans-04">
+                      <span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
+                          <i class="zmdi zmdi-circle"></i>
+                      </span>
+                      Grey
+                  </label>
+              </li>
+      
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="green" class="filter-checkbox stext-106 trans-04">
+                      <span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
+                          <i class="zmdi zmdi-circle"></i>
+                      </span>
+                      Green
+                  </label>
+              </li>
+      
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="red" class="filter-checkbox stext-106 trans-04">
+                      <span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
+                          <i class="zmdi zmdi-circle"></i>
+                      </span>
+                      Red
+                  </label>
+              </li>
+      
+              <li class="p-b-6">
+                  <label>
+                      <input type="checkbox" name="color-option" value="white" class="filter-checkbox stext-106 trans-04">
+                      <span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
+                          <i class="zmdi zmdi-circle-o"></i>
+                      </span>
+                      White
+                  </label>
+              </li>
+          </ul>
+      </div> -->
+
+
+            <div class="filter-col4 p-b-27">
+              <div class="mtext-102 cl2 p-b-15">
+                Brand
+              </div>
+
+              <ul class="filter-list">
+                <li>
+                  <label>
+                    <input type="checkbox" name="brand-option" value="Tissot" class="filter-checkbox">
+                    <span class="filter-label">Tissot</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" name="brand-option" value="G-shock" class="filter-checkbox">
+                    <span class="filter-label">G-shock</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" name="brand-option" value="Naviforce" class="filter-checkbox">
+                    <span class="filter-label">Naviforce</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" name="brand-option" value="Taitan" class="filter-checkbox">
+                    <span class="filter-label">Taitan</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" name="brand-option" value="Ferrari" class="filter-checkbox">
+                    <span class="filter-label">Ferrari</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- product in this raw -->
+  <div class="container-fluid py-5 d-flex flex-column " style="background:#d4f8ea;">
+    <h1 class="text-center p-t-20 m-b-15">PRODUCTS</h1>
+
+    <div id="product-container" class="d-flex flex-wrap gap-5 justify-content-center w-100  mt-2">
+      <% product.forEach((product,i)=>{ %>
+        <div class="col-md-2 col-sm-4 bg0" style="border-radius: 5px !important;">
+          <!-- Block2 -->
+          <div class="block2 ">
+            <div class="block2-pic rounded hov-img0">
+              <img src="<%=product.image[0].url  %>" alt="IMG-PRODUCT">
+
+              <a href="/productdetiles?slug=<%=product.slug  %>"
+                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal">
+                Quick View
+              </a>
+            </div>
+
+            <div class="block2-txt flex-w flex-t p-t-14">
+              <div class="block2-txt-child1 flex-col-l ">
+                <a href="/productdetiles?id=<%=product._id  %>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                  <%=product.productname %>
+                </a>
+                <p class="js-id-b2 dis-none ">
+                  <%=product._id %>
+                </p>
+
+                <span class="stext-105 cl3 m-b-10">
+                  ₹ <%=product.price %>
+                </span>
+              </div>
+
+              <div id="reload" class="block2-txt-child2 flex-r p-t-3">
+                <a href="#" id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                  <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                  <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                </a>
+                <a onclick="Addtocart('<%=product._id  %>')" class="ms-3 "><span>
+                    <li class="fa-solid fa-cart-shopping"></li>
+                  </span></a>
+
+              </div>
             </div>
           </div>
         </div>
         <% }) %>
-        
-      </div>
-    </div>
-        </div>
-      </div>
     </div>
 
 
+  </div>
 
 
 
@@ -364,129 +615,121 @@
 
 
 
+  <!-- offer -->
+  <div class="container " id="offer">
 
+    <div class="row">
 
-    <!-- offer -->
-    <div class="container" id="offer">
-      <div class="row">
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <h3>Free Shipping</h3>
-          <p>On order over $1000</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-rotate-left"></i>
-          <h3>Free Returns</h3>
-          <p>Within 30 days</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-truck"></i>
-          <h3>Fast Delivery</h3>
-          <p>World Wide</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-thumbs-up"></i>
-          <h3>Big choice</h3>
-          <p>Of products</p>
-        </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h3>Free Shipping</h3>
+        <p>On order over $1000</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-rotate-left"></i>
+        <h3>Free Returns</h3>
+        <p>Within 30 days</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-truck"></i>
+        <h3>Fast Delivery</h3>
+        <p>World Wide</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <h3>Big choice</h3>
+        <p>Of products</p>
       </div>
     </div>
-    <!-- offer -->
+  </div>
+  <!-- offer -->
 
 
 
-    <div class=" bg-danger" id="snackbar"> Product add to cart...</div>
-<div id="snackbar-error">this product has no stock left...</div>
-
-
-
-
-
+  <div class=" bg-danger" id="snackbar"> Product add to cart...</div>
+  <div id="snackbar-error">this product has no stock left...</div>
 
 
 
 
 
-    <!-- footer -->
-    <footer id="footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
 
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>Rich Bay Wathes</h3>
-              <p>
-                Malappuram <br>
-                Tirur <br>
-                India <br>
-              </p>
-              <strong>Phone:</strong> +000000000000000 <br>
-              <strong>Email:</strong> richbaywatches@.com <br>
-            </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Usefull Links</h4>
-             <ul>
+
+
+
+  <!-- footer -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Rich Bay Wathes</h3>
+            <p>
+              Malappuram <br>
+              Tirur <br>
+              India <br>
+            </p>
+            <strong>Phone:</strong> +000000000000000 <br>
+            <strong>Email:</strong> richbaywatches@.com <br>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Usefull Links</h4>
+            <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#">About Us</a></li>
               <li><a href="#">Services</a></li>
               <li><a href="#">Terms of service</a></li>
               <li><a href="#">Privacy policey</a></li>
-             </ul>
-            </div>
+            </ul>
+          </div>
 
 
 
-           
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Services</h4>
 
-             <ul>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+
+            <ul>
               <li><a href="#">Women's Collection</a></li>
               <li><a href="#">Men's Collection</a></li>
               <li><a href="#">Smart Watches</a></li>
               <li><a href="#">Automatic</a></li>
               <li><a href="#">Kidis Collection</a></li>
-             </ul>
-            </div>
+            </ul>
+          </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Social Networks</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
 
-              <div class="socail-links mt-3">
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-skype"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-              </div>
-            
+            <div class="socail-links mt-3">
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-skype"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
             </div>
 
           </div>
+
         </div>
       </div>
-      <hr>
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright <strong><span>Electronic Shop</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-          Designed by <a href="#">SA coding</a>
-        </div>
+    </div>
+    <hr>
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Electronic Shop</span></strong>. All Rights Reserved
       </div>
-    </footer>
-    <!-- footer -->
-
-
-
-
-
-
-
-    <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+      <div class="credits">
+        Designed by <a href="#">SA coding</a>
+      </div>
+    </div>
+  </footer>
+  <!-- footer -->
 
 
 
@@ -496,141 +739,340 @@
 
 
 
+  <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-       <!-- axios cdn -->
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
 
-       <!-- sweet alert cdn -->             
-       <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- axios cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+  <!-- sweet alert cdn -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+  <script>
+    function Addtocart(id) {
+      axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
+        if (result.data.response) {
+          let x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+        } else {
+          let x = document.getElementById("snackbar-error");
+          x.className = "show";
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+        }
+      })
+    }
+
+
+
+  </script>
+
+  <!--===============================================================================================-->
+  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/bootstrap/js/popper.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/select2/select2.min.js"></script>
+  <script>
+    $(".js-select2").each(function () {
+      $(this).select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $(this).next('.dropDownSelect2')
+      });
+    })
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/daterangepicker/moment.min.js"></script>
+  <script src="vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/slick/slick.min.js"></script>
+  <script src="js/slick-custom.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/parallax100/parallax100.js"></script>
+  <script>
+    $('.parallax100').parallax100();
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+  <script>
+    $('.gallery-lb').each(function () { // the containers for all your galleries
+      $(this).magnificPopup({
+        delegate: 'a', // the selector for gallery item
+        type: 'image',
+        gallery: {
+          enabled: true
+        },
+        mainClass: 'mfp-fade'
+      });
+    });
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/isotope/isotope.pkgd.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/sweetalert/sweetalert.min.js"></script>
+  <!-- <script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
+			e.preventDefault();
+		}); -->
+
+  // $('.js-addwish-b2').each(function(){
+  // var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+  // $(this).on('click', function(){
+  // swal(nameProduct, "is added to wishlist !", "success");
+
+  // $(this).addClass('js-addedwish-b2');
+  // $(this).off('click');
+  // });
+  // });
+
+  // $('.js-addwish-detail').each(function(){
+  // var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+  // $(this).on('click', function(){
+  // swal(nameProduct, "is added to wishlist !", "success");
+
+  // $(this).addClass('js-addedwish-detail');
+  // $(this).off('click');
+  // });
+  // });
+
+  /*---------------------------------------------*/
+
+  $('.js-addcart-detail').each(function(){
+  var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+  $(this).on('click', function(){
+  swal(nameProduct, "is added to cart !", "success");
+  });
+  });
+
+  <!-- </script> -->
+  <!--===============================================================================================-->
+  <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script>
+    $('.js-pscroll').each(function () {
+      $(this).css('position', 'relative');
+      $(this).css('overflow', 'hidden');
+      var ps = new PerfectScrollbar(this, {
+        wheelSpeed: 1,
+        scrollingThreshold: 1000,
+        wheelPropagation: false,
+      });
+
+      $(window).on('resize', function () {
+        ps.update();
+      })
+    });
+  </script>
+  <!--===============================================================================================-->
+  <script>
+    // $('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
+    // 	e.preventDefault();
+    // });
+
+    $('.js-addwish-b2').each(function () {
+      var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+      var idProduct = $(this).parent().parent().find('.js-id-b2').html();
+      var heartIcon1 = $(this).find('.icon-heart1');
+      var heartIcon2 = $(this).find('.icon-heart2');
+      const user = '<%- JSON.stringify(user) %>';
+      const userObject = JSON.parse(user);
+      var productExists = userObject.wishlist.includes(idProduct.trim());
+      // Set the initial heart icon state based on wishlist status
+      updateHeartIcon(productExists);
+
+      $(this).on('click', function (e) {
+        e.preventDefault();
+
+        
+        axios.get(`/wish-list-handle?prodid=${idProduct.trim()}`).then((result) => {
+          if (result.data.response) {
+
+            productExists = result.data.user.wishlist.includes(idProduct.trim());
+            // Update the heart icon source immediately
+            updateHeartIcon(productExists);
+            swal(nameProduct, "is added to wishlist !", "success");
+          } else {
     
-<script>
-   function Addtocart(id) {
-     axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
-       if(result.data.response){
-         let x = document.getElementById("snackbar");
-         x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-        }else{
-            let x = document.getElementById("snackbar-error");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-      }
-       })
-     }
+            productExists = result.data.user.wishlist.includes(idProduct.trim());
+            updateHeartIcon(productExists);
+            swal(nameProduct, "Removed from wishlist !", "info");
+          }
+        });
+      });
 
-
-     function resetPage() {
-    window.location.href = 'http://localhost:3020/product';
-  }
-
-  function controlToInput(toSlider, fromInput, toInput, controlSlider) {
-    const [from, to] = getParsed(fromInput, toInput);
-    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
-    setToggleAccessible(toInput);
-    if (from <= to) {
-      toSlider.value = to;
-      toInput.value = to;
-    } else {
-      toInput.value = from;
-    }
-  }
-
-  function controlFromSlider(fromSlider, toSlider, fromInput) {
-    const [from, to] = getParsed(fromSlider, toSlider);
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-    if (from > to) {
-      fromSlider.value = to;
-      fromInput.value = to;
-    } else {
-      fromInput.value = from;
-    }
-  }
-
-  function controlToSlider(fromSlider, toSlider, toInput) {
-    const [from, to] = getParsed(fromSlider, toSlider);
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-    setToggleAccessible(toSlider);
-    if (from <= to) {
-      toSlider.value = to;
-      toInput.value = to;
-    } else {
-      toInput.value = from;
-      toSlider.value = from;
-    }
-  }
-
-  function getParsed(currentFrom, currentTo) {
-    const from = parseInt(currentFrom.value, 10);
-    const to = parseInt(currentTo.value, 10);
-    return [from, to];
-  }
-
-  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-    const rangeDistance = to.max - to.min;
-    const fromPosition = from.value - to.min;
-    const toPosition = to.value - to.min;
-    controlSlider.style.background = `linear-gradient(
-      to right,
-      ${sliderColor} 0%,
-      ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
-      ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
-      ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
-      ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
-      ${sliderColor} 100%)`;
-  }
-
-  function setToggleAccessible(currentTarget) {
-    const toSlider = document.querySelector('#toSlider');
-    if (Number(currentTarget.value) <= 0) {
-      toSlider.style.zIndex = 2;
-    } else {
-      toSlider.style.zIndex = 0;
-    }
-  }
-
-  const fromSlider = document.querySelector('#fromSlider');
-  const toSlider = document.querySelector('#toSlider');
-  const fromInput = document.querySelector('#fromInput');
-  const toInput = document.querySelector('#toInput');
-  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-  setToggleAccessible(toSlider);
-
-  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
-  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
-  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
-  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
-
-  function submitForm() {
-        const searchInput = document.getElementById('searchInput');
-        const searchQuery = searchInput.value.trim(); // Get the search term and remove leading/trailing spaces
-
-        if (searchQuery !== '') {
-          const actionUrl = `/display-products?search=${encodeURIComponent(searchQuery)}`;
-          window.location.href = actionUrl; // Redirect to the updated action URL
-        }else{
-          const actionUrl = `/display-products?search=${""}`;
-          window.location.href = actionUrl; // Redirect to the updated action URL
+      function updateHeartIcon(isAdded) {
+        if (isAdded) {
+          heartIcon1.attr('src', 'images/icons/icon-heart-02.png');
+          heartIcon2.attr('src', 'images/icons/icon-heart-02.png');
+        } else {
+          heartIcon1.attr('src', 'images/icons/icon-heart-01.png');
+          heartIcon2.attr('src', 'images/icons/icon-heart-02.png');
         }
       }
-      function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
-      const [from, to] = getParsed(fromInput, toInput);
-      fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    });
 
-      if (from > to) {
-          fromSlider.value = to;
-          fromInput.value = to;
-      } else {
-          fromSlider.value = from;
+
+
+
+  </script>
+  <!--===============================================================================================-->
+  <script>
+
+  </script>
+  <script>
+    $(document).ready(function () {
+
+      var filterValue = undefined;
+      // Get all the filter buttons
+      const filterButtons = document.querySelectorAll('.filter-tope-group button');
+      // Add click event listener to each button
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Get the value of the data-filter attribute
+          filterValue = this.getAttribute('data-filter');
+
+          // Do something with the filterValue (e.g., use it to filter products)
+          handleFilterChange();
+          // console.log('Filter value:', filterValue);
+
+        });
+      });
+      // Function to gather form data and send it through AJAX
+      function sendFormData() {
+
+
+
+
+        var searchData = {
+          categoryId: filterValue,
+          searchContent: $("input[name='search-product']").val(),
+          sortOption: $("input[name='sort-option']:checked").val(),
+          priceOptions: $("input[name='price-option']:checked").map(function () {
+            return this.value;
+          }).get(),
+          color: $("input[name='color-option']:checked").map(function () {
+            return this.value;
+          }).get(),
+          brandId: $("input[name='brand-option']:checked").map(function () {
+            return this.value;
+          }).get(),
+
+        };
+
+        // Perform the AJAX request
+        $.ajax({
+          url: "/display-products", // Replace with the actual server endpoint
+          type: "POST",
+          dataType: "json",
+          data: JSON.stringify(searchData),
+          contentType: "application/json; charset=utf-8",
+          success: function (response) {
+            // console.log(response.product);
+            if (response && response.product) {
+              renderProductItems(response.product);
+            } else {
+              console.error("Invalid response or missing product data.");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Error sending data:", error);
+            console.log("Status code:", xhr.status);
+            console.log("Status text:", xhr.statusText);
+          },
+        });
       }
-  }
-</script>
+      function sendDataPeriodically() {
+        sendFormData();
+      }
+      // Function to handle filter changes and send data
+      function handleFilterChange() {
+        sendFormData();
+      }
+      // Attach event handlers to filter elements for change event
+      $("input[name='search-product'], input[name='sort-option'], input[name='price-option'], input[name='color-option'], input[name='brand-option']").on("change", function () {
+        handleFilterChange();
+      });
+
+    });
+
+
+    // Function to render product items dynamically
+    function renderProductItems(products) {
+      var productContainer = $("#product-container");
+      productContainer.empty(); // Clear previous content
+      products.forEach(function (product) {
+        var productItem = `
+      <div class="col-md-2 col-sm-4 bg0" style="border-radius: 5px !important;">
+            <!-- Block2 -->
+            <div class="block2 " >
+              <div class="block2-pic rounded hov-img0">
+                <img src="${product.image[0].url}" alt="IMG-PRODUCT">
+
+
+                <a href="/productdetiles?slug=${product.slug}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal">
+
+                  Quick View
+                </a>
+              </div>
+
+              <div class="block2-txt flex-w flex-t p-t-14">
+                <div class="block2-txt-child1 flex-col-l ">
+                  <a href="/productdetiles?id=${product._id}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">${product.productname}</a>
+
+                  <p class="js-id-b2 dis-none ">{product._id}</p>
+
+                  <span class="stext-105 cl3">₹ ${product.price}</span>
+
+                </div>
+
+                <div id="reload" class="block2-txt-child2 flex-r p-t-3">
+                  <div href="#" id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                    </div>
+                    <a onclick="Addtocart('${product._id}')" class="ms-3 ">
+                  <span><li class="fa-solid fa-cart-shopping"></li></span>
+                </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      `;
+
+
+
+
+        productContainer.append(productItem);
+      });
+    }
+
+
+
+  </script>
+
+  <!--===============================================================================================-->
+  <script src="js/main.js"></script>
 
 
 </body>
+
 </html>

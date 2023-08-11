@@ -192,6 +192,10 @@
                                                     <label class="form-label" for="minimumAmount">Min amount</label>
                                                     <input type="number" min="1" id="minimumAmount" name="minimumAmount" style="box-shadow: none;" class="form-control" value="<%= coupon.minAmount %>"  required/>
                                                 </div>
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="maximumAmount">Max amount</label>
+                                                    <input type="number" min="1" id="maximumAmount" name="maximumAmount" style="box-shadow: none;" class="form-control" value="<%= coupon.maxAmount %>"  required/>
+                                                </div>
         
                                                 <input type="hidden" id="id" name="id" value="<%= coupon._id %>">
                               
@@ -243,6 +247,7 @@
         const discount = document.getElementById('discount');
         const expiryDate = document.getElementById('expiryDate');
         const minimumAmount = document.getElementById('minimumAmount');
+        const maximumAmount = document.getElementById('maximumAmount');
 
         form.addEventListener('submit',(e)=>{
             e.preventDefault();
@@ -254,7 +259,8 @@
                     id: id.value,
                     discount: discount.value,
                     expiryDate: new Date(expiryDate.value),
-                    minimumAmount:minimumAmount.value
+                    minimumAmount:minimumAmount.value,
+                    maximumAmount:maximumAmount.value,
                 }
             })
             .then((result)=>{

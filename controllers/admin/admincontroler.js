@@ -48,8 +48,6 @@ const loaduserlist=async (req,res)=>{
 }
 const editaccess=async(req,res)=>{
     try {
-    console.log(req.query.value);
-    console.log(req.query.id);
         if(req.query.value=='true'){
             console.log('first');
             req.session.session_id=null
@@ -73,7 +71,6 @@ const loadadminhome=async(req,res)=>{
         .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
         .sort({'dateorder':-1})
         res.render('./admin/adminhome',{orderlist,procount})
-        console.log(orderlist);
     } catch (error) {
         console.log(error.message);
     }
@@ -93,8 +90,13 @@ const cancelorder=async (req,res)=>{
 
 const changestatus=async(req,res)=>{
     try {
-        console.log('hai');
         await ordermodel.updateOne({_id:req.query.id},{$set:{status:req.query.status}})
+        if(req.query.status=='Deliverd'){
+            const now = new Date();
+            const dateAfterNow = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
+
+            await ordermodel.updateOne({_id:req.query.id},{$set:{returntime:dateAfterNow}})
+        }
         res.json({response:true})
     } catch (error) {
         console.log(error.message);
@@ -107,8 +109,17 @@ const loadorderdetailes= async(req,res)=>{
         const thisorder = await ordermodel.find({_id:req.query.id}).populate('user','username').populate('shippingaddress')
         .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
         const order=thisorder[0]
-        console.log(thisorder[0]);
         res.render('./admin/ordredetales',{order})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+//for load admin dash bord
+
+const loaddashbord=async (req,res)=>{
+    try {
+        res.render('./admin/admindashbord')
     } catch (error) {
         console.log(error.message);
     }
@@ -123,5 +134,6 @@ module.exports={
     loadadminhome,
     cancelorder,
     changestatus,
-    loadorderdetailes
+    loadorderdetailes,
+    loaddashbord
 }

@@ -1,5 +1,7 @@
 const cartmodel = require("../../model/cart/cartmodel");
+const catogerymodel = require("../../model/catogery/catogerymodel");
 const productmodel = require("../../model/product/productmodel");
+const usermodel = require("../../model/user/usermodel");
 
 const loadcart = async (req, res) => {
   try {
@@ -43,7 +45,9 @@ const loadcart = async (req, res) => {
       
 
    }
-    res.render("./catogery/cart", { cart });
+   const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
+    res.render("./catogery/cart", { cart,catogery,user });
   } catch (error) {
     console.log(error.message);
   }

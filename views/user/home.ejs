@@ -1,252 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Electronic Shop</title>
-    <link rel="stylesheet" href="/style2/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    />
-    <!-- bootstrap links -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <!-- bootstrap links -->
-    <!-- fonts links -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
-      rel="stylesheet"
-    />
-    <!-- fonts links -->
-    <style>
-      #snackbar,
-      #snackbar-error,
-      #wishbar,
-      #wishbar-error {
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 10px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronic Shop</title>
+  <link rel="stylesheet" href="/style2/style.css" />
+  <!-- Add these lines to the head section of your HTML file -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <!-- bootstrap links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- bootstrap links -->
+  <!-- fonts links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
+
+
+
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--===============================================================================================-->
+
+  <!-- fonts links -->
+  <style>
+    #snackbar,
+    #snackbar-error,
+    #wishbar,
+    #wishbar-error {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 10px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      border-radius: 15px;
+    }
+
+    #snackbar.show,
+    #snackbar-error.show,
+    #wishbar.show,
+    #wishbar-error.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
         bottom: 30px;
-        font-size: 17px;
-        border-radius: 15px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
       }
 
-      #snackbar.show,
-      #snackbar-error.show,
-      #wishbar.show,
-      #wishbar-error.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
       }
 
-      @-webkit-keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
       }
 
-      @keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
+      to {
+        bottom: 0;
+        opacity: 0;
       }
+    }
+  </style>
+</head>
 
-      @-webkit-keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
+<body class="" style="background: #d4f8ea;">
+  <!-- top navbar -->
+  <div class="top-navbar">
+    <% if(user){ %>
+      <% }else{ %>
+        <p>WELCOME TO OUR SHOP</p>
+        <div class="icons">
+          <a href="/login"><img src="./images/register.png" alt="" width="18px" />Login</a>
+          <a href="/signup"><img src="./images/register.png" alt="" width="18px" />Register</a>
+          <% } %>
+        </div>
+  </div>
+  <!-- top navbar -->
 
-      @keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
-  <body style="background: #d4f8ea;">
-    <!-- top navbar -->
-    <div class="top-navbar">
-      <% if(session_id){ %> <% }else{ %>
-      <p>WELCOME TO OUR SHOP</p>
-      <div class="icons">
-        <a href="/login"
-          ><img src="./images/register.png" alt="" width="18px" />Login</a
-        >
-        <a href="/signup"
-          ><img src="./images/register.png" alt="" width="18px" />Register</a
-        >
-        <% } %>
-      </div>
-    </div>
-    <!-- top navbar -->
-
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark" id="navbar">
-      <div class="container-fluid bg-dark">
-        <a class="navbar-brand" href="index.html" id="logo"
-          ><span id="span1">Rich</span>Bay <span>Wathes</span></a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span><img src="./images/menu.png" alt="" width="30px" /></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/display-products">Product</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Category
-              </a>
-              <ul
-                class="dropdown-menu"
-                aria-labelledby="navbarDropdown"
-                style="background-color: rgb(255, 255, 255)"
-              >
-                <% catogery.forEach((cat,i)=>{%>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark" id="navbar">
+    <div class="container-fluid bg-dark">
+      <a class="navbar-brand" href="index.html" id="logo"><span id="span1">Rich</span>Bay <span>Watches</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span><img src="./images/menu.png" alt="" width="30px" /></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/display-products">Product</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Category
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(255, 255, 255)">
+              <% catogery.forEach((cat,i)=>{%>
                 <li>
-                  <a
-                    class="dropdown-item"
-                    href="/catogery-user?id=<%=cat._id %>"
-                    ><%=cat.catogeryname %></a
-                  >
+                  <a class="dropdown-item" href="/display-products?categoryId=<%=cat._id %>">
+                    <%=cat.catogeryname %>
+                  </a>
                 </li>
 
                 <% }) %>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-          </ul>
-          <form
-            action="/list-search-porduct"
-            method="post"
-            class="d-flex"
-            id="search"
-          >
-            <input
-              class="form-control me-2"
-              name="search"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success me-5" type="submit">
-              Search
-            </button>
-          </form>
+            </ul>
+          </li>
 
+        </ul>
+        <form action="" method="" class=" d-flex " id="searchForm">
+          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn btn-outline-success me-5" type="submit">
+            Search
+          </button>
+        </form>
+
+        <div class="d-flex">
           <div class="d-flex">
-            <div class="d-flex">
-              <a
-                style="color: #000"
-                class="bg-white p-1 px-2 mt-2 rounded-circle"
-                href="/cart"
-                ><span><li class="fa-solid fa-cart-shopping"></li></span
-              ></a>
-              <span
-                class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
-                style="margin-left: -9px"
-                >4</span
-              >
-            </div>
-            <div class="d-flex">
-              <a
-                style="color: #000"
-                class="bg-white p-1 px-2 mt-2 rounded-circle"
-                href="wish-list"
-                ><span><li class="far fa-heart"></li></span
-              ></a>
-              <span
-                class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
-                style="margin-left: -9px"
-                >4</span
-              >
-            </div>
+            <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="/cart"><span>
+                <li class="fa-solid fa-cart-shopping"></li>
+              </span></a>
+            <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+              style="margin-left: -9px"><%=cartcount  %></span>
           </div>
+          <div class="d-flex">
+            <a style="color: #000" class="bg-white p-1 px-2 mt-2 rounded-circle" href="wish-list"><span>
+                <li class="far fa-heart"></li>
+              </span></a>
+            <span class="cart-item-count bg-danger text-white px-1 mt-1 small mb-3 me-2 rounded-circle"
+              style="margin-left: -9px"><%=wishlistcount  %></span>
+          </div>
+        </div>
 
-          <% if(session_id){ %>
-          <nav
-            class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center"
-          >
+        <% if(user){ %>
+          <nav class="navbar navbar-expand-lg ms-5 navbar-light bg-transparent align-items-end justify-content-center">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle text-white second-text fw-bold"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="fas fa-user me-2"></i>John Doe
+                  <a class="nav-link dropdown-toggle text-white second-text fw-bold" href="#" id="navbarDropdown"
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user me-2"></i>
+                    <%=user.username %>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
                       <a class="dropdown-item" href="/userprofile">Profile</a>
                     </li>
-                    <!-- <li><a class="dropdown-item " href="#">Settings</a></li> -->
+                    <li><a class="dropdown-item " href="/wallet">Wallet</a></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                   </ul>
                 </li>
@@ -254,128 +230,163 @@
             </div>
           </nav>
           <% } %>
+      </div>
+    </div>
+  </nav>
+  <!-- navbar -->
+
+
+
+  <div id="demo" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="home hero__item set-bg" data-setbg=""
+          style="background-image: url('<%=banners[0].bannerImage.url%>'); background-size: cover;">
+          <div class="content container-fluid">
+            <h1> <span>
+                <%=banners[0].title%>
+              </span>
+              <br>
+              <span id="span2">
+                <%=banners[0].description%>
+              </span>
+            </h1>
+            <div class="btn d-flex justify-content-center mt-5 "><button
+                onclick="catogery('<%=banners[0].targetCategory%>')">Shop Now</button></div>
+          </div>
         </div>
       </div>
-    </nav>
-    <!-- navbar -->
+      <% for(i=1;i<banners.length;i++){ %>
+        <div class="carousel-item">
+          <div class="home hero__item"
+            style="background-image: url('<%=banners[i].bannerImage.url%>'); background-size: cover;">
+            <div class="content container-fluid">
+              <h1> <span>
+                  <%=banners[i].title%>
+                </span>
+                <br>
+                <span id="span2">
+                  <%=banners[i].description%>
+                </span>
+              </h1>
 
-    <!-- home content -->
-    <section
-      class="home"
-      style="
-        background: url(./images/Tissort_1920_x_667_px.webp);
-        background-size: cover;
-      "
-    >
-      <div class="content container-fluid">
-        <!-- <h1> <span>Electronic Products</span> -->
-        <!-- <br>
-        Up To <span id="span2">50%</span> Off
-      </h1>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, saepe.
-        <br>Lorem ipsum dolor sit amet consectetur.
-      </p> -->
-        <div class="btn"><button>Shop Now</button></div>
-      </div>
-      <!-- <div class="img">
-      <img src="./images/Tissort_1920_x_667_px.webp" alt="">
-    </div> -->
-    </section>
-    <!-- home content -->
+              <div class="btn d-flex justify-content-center mt-5"><button
+                  onclick="catogery('<%=banners[0].targetCategory%>')">Shop Now</button></div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+          <!-- Add more carousel items here with different background images -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+    </div>
+  </div>
 
-    <!-- product cards -->
-    <div class="container" id="product-cards">
-      <h1 class="text-center">PRODUCTS</h1>
-      <div class="row" style="margin-top: 30px">
-        <% product.forEach((product,i)=>{ %>
-        <div class="col-md-3 py-3 py-md-0">
-          <div class="card mt-4">
-            <img style="height: 300px" src="<%=product.image[0]  %>" alt="" />
-            <div class="card-body">
-              <h3 class="text-center"><%=product.productname %></h3>
-              <p class="text-center"><%=product.description %></p>
-              <div class="star text-center">
-                <a
-                  class="btn btn-outline-success"
-                  href="/productdetiles?id=<%=product._id  %>"
-                  >shop now</a
-                >
 
-                <!-- <i class="fa-solid fa-star checked"></i> -->
-                <!-- <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i>
-                <i class="fa-solid fa-star checked"></i> -->
+  <!-- home content -->
+
+
+  <!-- product in this raw -->
+  <div id="product-container" class="container-fluid py-5 d-flex flex-column " style="background:#d4f8ea;">
+    <h1 class="text-center p-t-20 m-b-15">TOP PRODUCTS</h1>
+
+    <div class="d-flex flex-wrap gap-5 justify-content-center w-100  mt-2">
+      <% product.forEach((product,i)=>{ %>
+        <div class="col-md-2 col-sm-4 bg0" style="border-radius: 5px !important;">
+          <!-- Block2 -->
+          <div class="block2 ">
+            <div class="block2-pic rounded hov-img0">
+              <img src="<%=product.image[0].url  %>" alt="IMG-PRODUCT">
+
+              <a href="/productdetiles?slug=<%=product.slug  %>"
+                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal">
+                Quick View
+              </a>
+            </div>
+
+            <div class="block2-txt flex-w flex-t p-t-14">
+              <div class="block2-txt-child1 flex-col-l ">
+                <a href="/productdetiles?slug=<%=product.slug  %>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                  <%=product.productname %>
+                </a>
+                <p class="js-id-b2 dis-none ">
+                  <%=product._id %>
+                </p>
+
+                <span class="stext-105 cl3 m-b-10">
+                  ₹ <%=product.price %>
+                </span>
               </div>
-              <div class="d-flex justify-content-center">
-                <h2>₹ <%=product.price %></h2>
-                <a
-                  onclick="Addtowishlist('<%=product._id  %>')"
-                  class="nav-link text-dark mt-2"
-                  style="margin-left: 5rem"
-                  ><span><li class="far fa-heart"></li></span
-                ></a>
-                <a
-                  onclick="Addtocart('<%=product._id  %>')"
-                  class="nav-link text-dark mt-2"
-                  ><span><li class="fa-solid fa-cart-shopping"></li></span
-                ></a>
+
+              <div id="reload" class="block2-txt-child2 flex-r p-t-3">
+                <div <% if(!user){ %> onclick="handleWishlistClick()" <% } %> id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"> 
+                  <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                  <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                </div>
+                <% if(user){ %>
+                <a onclick="Addtocart('<%=product._id  %>') " class="ms-3 "><span>
+                  <% }else{ %>
+                <a onclick="handlecartclick() " class="ms-3 "><span>
+                  <% } %>
+                    <li class="fa-solid fa-cart-shopping"></li>
+                  </span></a>
+
               </div>
             </div>
           </div>
         </div>
         <% }) %>
-      </div>
     </div>
-    <!-- product cards -->
 
-    <!-- other cards -->
-    <div class="container mt-5" id="other-cards">
-      <div class="row justify-content-center align-items-center">
-        <div
-          class="col-md-6 py-3 py-md-0 mx-2 my-2"
-          style="
-            width: 39rem;
+
+  </div>
+
+  <!-- other cards -->
+  <div class="container-fluid d-flex flex-column mt-5  " style="background:#d4f8ea; ;" id="other-cards">
+    <div class="  d-flex flex-wrap gap-5 justify-content-center w-100  m-0">
+      <div class="col-md-10 col-sm-8 col-lg-5 d-flex justify-content-center align-items-center " style="
+            
             height: 25rem;
+            
             background: url(./images/Women1_jpg_765x.webp);
-            background-size: cover;
-          "
-        >
-          <div class="card">
-            <!-- <img src="" alt="./images/w1.png"> -->
-            <div class="card-img-overlay">
-              <h3>Women collection</h3>
-              <h5>Latest Collection</h5>
-              <!-- <p>Up To 50% Off</p> -->
-              <button id="shopnow">Shop Now</button>
-            </div>
+            background-size: 100%;
+          ">
+        <div class="card">
+          <!-- <img src="" alt="./images/w1.png"> -->
+          <div class="card-img-overlay m-t-73  ">
+            <!-- <h3>Women collection</h3> -->
+            <!-- <h5>Latest Collection</h5> -->
+            <!-- <p>Up To 50% Off</p> -->
+            <button onclick="gotowomen()" id="shopnow">Shop Now</button>
           </div>
         </div>
-        <div
-          class="col-md-6 py-3 py-md-0 mx-2 my-2"
-          style="
-            width: 39rem;
+      </div>
+      <div class="col-md-10 col-sm-8 col-lg-5 d-flex justify-content-center align-items-center " style="
+            
             height: 25rem;
-            background-size: cover;
             background: url(./images/men1_jpg_765x.webp);
-          "
-        >
-          <div class="card">
-            <!-- <img src="./images/c2.png" alt=""> -->
-            <div class="card-img-overlay">
-              <h3>Best Headphone</h3>
-              <h5>Latest Collection</h5>
-              <p>Up To 50% Off</p>
-              <button id="shopnow">Shop Now</button>
-            </div>
+            background-size: 100%;
+          ">
+        <div class="card ">
+          <!-- <img src="./images/c2.png" alt=""> -->
+          <div class="card-img-overlay  m-t-73 ">
+            <!-- <h3>Best Headphone</h3> -->
+            <!-- <h5>Latest Collection</h5> -->
+            <!-- <p>Up To 50% Off</p> -->
+            <button onclick="gotomen()" id="shopnow">Shop Now</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- other cards -->
+  </div>
+  <!-- other cards -->
 
-    <!-- banner -->
-    <!-- <section class="banner">
+  <!-- banner -->
+  <!-- <section class="banner">
       <div class="content">
         <h1> <span>Electronic Gadget</span>
           <br>
@@ -392,8 +403,8 @@
       </div>
     </section> -->
 
-    <!-- product cards -->
-    <!-- <div class="container" id="product-cards">
+  <!-- product cards -->
+  <!-- <div class="container" id="product-cards">
 
       <div class="row" style="margin-top: 30px;">
         <div class="col-md-3 py-3 py-md-0">
@@ -466,8 +477,8 @@
         </div>
       </div> -->
 
-    <!-- other cards -->
-    <!-- <div class="container" id="other">
+  <!-- other cards -->
+  <!-- <div class="container" id="other">
       <div class="row">
         <div class="col-md-4 py-3 py-md-0">
           <div class="card">
@@ -489,8 +500,8 @@
         </div>
         <div class="col-md-4 py-3 py-md-0">
           <div class="card"> -->
-    <!-- <img src="" alt="./images/1_Smart-Watch_480x.webp"> -->
-    <!-- <div class="card-img-overlay">
+  <!-- <img src="" alt="./images/1_Smart-Watch_480x.webp"> -->
+  <!-- <div class="card-img-overlay">
               <h3>Electronic Gadget</h3>
               <p>Latest collection Up To 50% Off</p>
             </div>
@@ -498,161 +509,389 @@
         </div>
       </div>
     </div> -->
-    <!-- other cards -->
+  <!-- other cards -->
 
-    <!-- offer -->
-    <div class="container" id="offer">
-      <div class="row">
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <h3>Free Shipping</h3>
-          <p>On order over $1000</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-rotate-left"></i>
-          <h3>Free Returns</h3>
-          <p>Within 30 days</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-truck"></i>
-          <h3>Fast Delivery</h3>
-          <p>World Wide</p>
-        </div>
-        <div class="col-md-3 py-3 py-md-0">
-          <i class="fa-solid fa-thumbs-up"></i>
-          <h3>Big choice</h3>
-          <p>Of products</p>
-        </div>
+  <!-- offer -->
+  <div class="container" id="offer">
+    <div class="row">
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h3>Free Shipping</h3>
+        <p>On order over $1000</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-rotate-left"></i>
+        <h3>Free Returns</h3>
+        <p>Within 30 days</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-truck"></i>
+        <h3>Fast Delivery</h3>
+        <p>World Wide</p>
+      </div>
+      <div class="col-md-3 py-3 py-md-0">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <h3>Big choice</h3>
+        <p>Of products</p>
       </div>
     </div>
-    <!-- offer -->
+  </div>
+  <!-- offer -->
 
-    <div class="bg-danger" id="snackbar">Product add to cart...</div>
-    <div id="snackbar-error">this product has no stock left...</div>
+  <div class="bg-danger" id="snackbar">Product add to cart...</div>
+  <div id="snackbar-error">this product has no stock left...</div>
 
-    <div class="bg-danger" id="wishbar">Product add to wishlist...</div>
-    <div id="wishbar-error">Product removed from wishlist...</div>
+  <div class="bg-danger" id="wishbar">Product add to wishlist...</div>
+  <div id="wishbar-error">Product removed from wishlist...</div>
 
-    <!-- footer -->
-    <footer id="footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>Rich Bay Wathes</h3>
-              <p>
-                Malappuram <br />
-                Tirur <br />
-                India <br />
-              </p>
-              <strong>Phone:</strong> +000000000000000 <br />
-              <strong>Email:</strong> richbaywatches@.com <br />
-            </div>
+  <!-- footer -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Rich Bay Wathes</h3>
+            <p>
+              Malappuram <br />
+              Tirur <br />
+              India <br />
+            </p>
+            <strong>Phone:</strong> +000000000000000 <br />
+            <strong>Email:</strong> richbaywatches@.com <br />
+          </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Usefull Links</h4>
-              <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Terms of service</a></li>
-                <li><a href="#">Privacy policey</a></li>
-              </ul>
-            </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Usefull Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+            </ul>
+          </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Services</h4>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
 
-              <ul>
-                <li><a href="#">Women's Collection</a></li>
-                <li><a href="#">Men's Collection</a></li>
-                <li><a href="#">Smart Watches</a></li>
-                <li><a href="#">Automatic</a></li>
-                <li><a href="#">Kidis Collection</a></li>
-              </ul>
-            </div>
+            <ul>
+              <li><a href="#">Women's Collection</a></li>
+              <li><a href="#">Men's Collection</a></li>
+              <li><a href="#">Smart Watches</a></li>
+              <li><a href="#">Automatic</a></li>
+              <li><a href="#">Kidis Collection</a></li>
+            </ul>
+          </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Social Networks</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia,
-                quibusdam.
-              </p>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia,
+              quibusdam.
+            </p>
 
-              <div class="socail-links mt-3">
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-skype"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-              </div>
+            <div class="socail-links mt-3">
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-skype"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
             </div>
           </div>
         </div>
       </div>
-      <hr />
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright <strong><span>Electronic Shop</span></strong
-          >. All Rights Reserved
-        </div>
-        <div class="credits">Designed by <a href="#">SA coding</a></div>
+    </div>
+    <hr />
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Electronic Shop</span></strong>. All Rights Reserved
       </div>
-    </footer>
-    <!-- footer -->
+      <div class="credits">Designed by <a href="#">SA coding</a></div>
+    </div>
+  </footer>
+  <!-- footer -->
 
-    <a href="#" class="arrow"
-      ><i><img src="./images/arrow.png" alt="" /></i
-    ></a>
+  <a href="#" class="arrow"><i><img src="./images/arrow.png" alt="" /></i></a>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
-    <!-- axios cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+  <!-- axios cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
 
-    <!-- sweet alert cdn -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- sweet alert cdn -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-      function Addtocart(id) {
-        axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
-          if (result.data.response) {
-            let x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () {
-              x.className = x.className.replace("show", "");
-            }, 2000);
+  <script>
+    function Addtocart(id) {
+     
+      axios.get(`/addtocart?id=${id}&action=plus`).then((result) => {
+        if (result.data.response) {
+          let x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function () {
+            x.className = x.className.replace("show", "");
+          }, 2000);
+        } else {
+          let x = document.getElementById("snackbar-error");
+          x.className = "show";
+          setTimeout(function () {
+            x.className = x.className.replace("show", "");
+          }, 2000);
+        }
+      });
+    
+    }
+    
+
+    function gotowomen(){
+      location.href='/display-products?categoryId=64d0c31729ab608aa0d79fc7'
+    }
+    function gotomen(){
+      location.href='/display-products?categoryId=64d0cef1f75f0b787c5b2feb'
+    }
+
+    function catogery(id) {
+      location.href = `/display-products?categoryId=${id}`
+    }
+
+
+
+    //for search product
+    $(document).ready(function () {
+      // Function to handle form submission
+      $("#search-form").submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Get the search input value
+        const searchValue = $("#search-product-input").val();
+
+        // Construct the URL with the search input value
+        const url = "/search-product?searchcontent=" + encodeURIComponent(searchValue);
+
+        // Update the href attribute of the anchor tag
+        $("#search-link").attr("href", url);
+
+        // Optionally, you can trigger the click event on the anchor tag to navigate to the new URL
+        // $("#search-link")[0].click();
+      });
+    });
+
+
+  </script>
+
+  <!--===============================================================================================-->
+  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <!-- <script src="vendor/bootstrap/js/popper.js"></script> -->
+  <!-- <script src="vendor/bootstrap/js/bootstrap.min.js"></script> -->
+  <!--===============================================================================================-->
+  <script src="vendor/select2/select2.min.js"></script>
+  <script>
+    $(".js-select2").each(function () {
+      $(this).select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $(this).next('.dropDownSelect2')
+      });
+    })
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/daterangepicker/moment.min.js"></script>
+  <script src="vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/slick/slick.min.js"></script>
+  <script src="js/slick-custom.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/parallax100/parallax100.js"></script>
+  <script>
+    $('.parallax100').parallax100();
+  </script>
+
+  <!--===============================================================================================-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!--===============================================================================================-->
+  <script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+  <script>
+    $('.gallery-lb').each(function () { // the containers for all your galleries
+      $(this).magnificPopup({
+        delegate: 'a', // the selector for gallery item
+        type: 'image',
+        gallery: {
+          enabled: true
+        },
+        mainClass: 'mfp-fade'
+      });
+    });
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/isotope/isotope.pkgd.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/sweetalert/sweetalert.min.js"></script>
+  <script>
+    // $('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
+    // 	e.preventDefault();
+    // });
+    
+    const user = '<%- JSON.stringify(user) %>';
+    if(user){
+      $('.js-addwish-b2').each(function () {
+        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+        var idProduct = $(this).parent().parent().find('.js-id-b2').html();
+        var heartIcon1 = $(this).find('.icon-heart1');
+        var heartIcon2 = $(this).find('.icon-heart2');
+        const user = '<%- JSON.stringify(user) %>';
+        const userObject = JSON.parse(user);
+        var productExists = userObject.wishlist.includes(idProduct.trim());
+        // Set the initial heart icon state based on wishlist status
+        updateHeartIcon(productExists);
+
+        $(this).on('click', function (e) {
+          e.preventDefault();
+
+          
+          axios.get(`/wish-list-handle?prodid=${idProduct.trim()}`).then((result) => {
+            if (result.data.response) {
+
+              let z = document.getElementById("wishbar");
+              z.className = "show";
+              setTimeout(function () {
+                z.className = z.className.replace("show", "");
+              }, 2000);
+
+
+
+              productExists = result.data.user.wishlist.includes(idProduct.trim());
+              // Update the heart icon source immediately
+              updateHeartIcon(productExists);
+              swal(nameProduct, "is added to wishlist !", "success");
+            } else {
+              let z = document.getElementById("wishbar-error");
+              z.className = "show";
+              setTimeout(function () {
+                z.className = z.className.replace("show", "");
+              }, 2000);
+              productExists = result.data.user.wishlist.includes(idProduct.trim());
+              updateHeartIcon(productExists);
+              swal(nameProduct, "Removed from wishlist !", "info");
+            }
+          });
+        });
+      
+
+        function updateHeartIcon(isAdded) {
+          if (isAdded) {
+            heartIcon1.attr('src', 'images/icons/icon-heart-02.png');
+            heartIcon2.attr('src', 'images/icons/icon-heart-02.png');
           } else {
-            let x = document.getElementById("snackbar-error");
-            x.className = "show";
-            setTimeout(function () {
-              x.className = x.className.replace("show", "");
-            }, 2000);
+            heartIcon1.attr('src', 'images/icons/icon-heart-01.png');
+            heartIcon2.attr('src', 'images/icons/icon-heart-02.png');
+          }
+        }
+      });
+
+   
+    }
+
+
+    function handlecartclick(){
+      
+      Swal.fire({
+          icon: 'info',
+          title: 'Login Required',
+          text: 'Please log in to add products to your cart.',
+          showCancelButton: true,
+          confirmButtonText: 'Log In',
+          cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // You can redirect the user to the login page here
+            //  window.location.href = '/login';
+            Swal.fire({
+              icon: 'info',
+              title: 'Redirecting to Login Page',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(()=>{
+              window.location.href = '/login'
+            });
           }
         });
-      }
+    }
 
-      function Addtowishlist(id) {
-        axios.get(`/wish-list-handle?prodid=${id}`).then((result) => {
-          if (result.data.response) {
-            let z = document.getElementById("wishbar");
-            z.className = "show";
-            setTimeout(function () {
-              z.className = z.className.replace("show", "");
-            }, 2000);
-          } else {
-            let z = document.getElementById("wishbar-error");
-            z.className = "show";
-            setTimeout(function () {
-              z.className = z.className.replace("show", "");
-            }, 2000);
-          }
+    function handleWishlistClick() {
+ 
+    // Show the login alert using SweetAlert
+    Swal.fire({
+      icon: 'info',
+      title: 'Login Required',
+      text: 'Please log in to add products to your wishlist.',
+      showCancelButton: true,
+      confirmButtonText: 'Log In',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect the user to the login page
+        Swal.fire({
+          icon: 'info',
+          title: 'Redirecting to Login Page',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          window.location.href = '/login';
         });
       }
-    </script>
-  </body>
+    });
+ 
+}
+
+
+  </script>
+  <!--===============================================================================================-->
+  <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script>
+    $('.js-pscroll').each(function () {
+      $(this).css('position', 'relative');
+      $(this).css('overflow', 'hidden');
+      var ps = new PerfectScrollbar(this, {
+        wheelSpeed: 1,
+        scrollingThreshold: 1000,
+        wheelPropagation: false,
+      });
+
+      $(window).on('resize', function () {
+        ps.update();
+      })
+    });
+  </script>
+  <!--===============================================================================================-->
+  <script>
+
+  </script>
+
+
+  <!--===============================================================================================-->
+  <script>
+    // Get the form element
+    const searchForm = document.getElementById("searchForm");
+
+    // Add a submit event listener to the form
+    searchForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the value of the search input
+      const searchInput = document.querySelector("input[name='search']").value;
+
+      // Print the value in the console
+      console.log("Search value:", searchInput);
+      window.location.href = "/display-products?searchContent=" + searchInput;
+    });
+  </script>
+  <!--===============================================================================================-->
+  <!-- <script src="js/main.js"></script> -->
+</body>
+
 </html>

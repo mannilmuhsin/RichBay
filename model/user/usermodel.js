@@ -23,6 +23,10 @@ const userschema=new schema({
         type:Boolean,
         required:true
     },
+    createdAt:{
+        type:Date,
+        default:Date.now()
+    },
     isadmin:{
         type:Boolean,
         require:true

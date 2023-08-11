@@ -111,10 +111,11 @@
                                     <th scope="col" width="50">#</th>
                                     <th scope="col">Coupen Name</th>
                                     <th scope="col">Min amount</th>
+                                    <th scope="col">Max amount</th>
                                     <th scope="col">Discount</th>
                                     <th scope="col">Expiry Date</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Edite</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -127,15 +128,22 @@
                                     <td >
                                      <%=coupen.minAmount  %>
                                     </td>
+                                    <td >
+                                     <%=coupen.maxAmount  %>
+                                    </td>
                                     <td><%=coupen.discount  %></td>
                                     <td> <%=coupen.expiryDate.toLocaleDateString('en-US', { year: 'numeric' ,
                                         month: 'numeric' , day: 'numeric' });%></td>
 
                                     <td>
-                                     <%=coupons.discount  %>
+                                     <% if(coupen.valid==true){ %>
+                                        <button onclick="changeacess('<%=coupen.slug %>','Disable')" class="btn btn-success">Disable</button>
+                                        <% }else{ %>
+                                            <button onclick="changeacess('<%=coupen.slug  %>','Enable')" class="btn btn-danger">Enable</button>
+                                            <% } %>
                                     </td>
 
-                                    <td><a class="btn btn-outline-dark" href="/admin/editcoupen?id=<%=coupen._id  %>">Edite</a></td>
+                                    <td><a class="btn btn-outline-dark" href="/admin/editcoupen?id=<%=coupen._id  %>">Edit</a></td>
                                 </tr>
                                 <% }) %>
                                 
@@ -150,6 +158,11 @@
     </div>
     <!-- /#page-content-wrapper -->
     </div>
+      <!-- axios cdn -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+      <!-- sweet alert cdn -->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -159,6 +172,30 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+      
+        function changeacess(slug,action) {
+           Swal.fire({
+             icon: "warning",
+             title: "Are you sure?",
+             text: action+" coupen?",
+             showCancelButton: true,
+             confirmButtonColor: "#3085d6",
+             cancelButtonColor: "#d33",
+             confirmButtonText: "Ok",
+           }).then((result) => {
+             if (result.isConfirmed) {
+               axios.get(`/coupen-check?slug=${slug}`).then((result) => {
+                 Swal.fire(action+"d.!", "coupen has been "+action+"d .", "success").then((response) => {
+                   location.reload();
+                 })
+               })
+               
+             }
+           });
+         }
+
+
     </script>
 </body>
 

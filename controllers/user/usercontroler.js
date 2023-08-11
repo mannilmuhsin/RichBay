@@ -1,6 +1,7 @@
 const { render } = require('ejs');
 const User=require('../../model/user/usermodel')
 const bcrypt=require('bcrypt')
+const mongoose=require('mongoose')
 const nodemailer=require('nodemailer')
 const bodyparser=require('body-parser')
 const speakeasy=require('speakeasy')
@@ -12,6 +13,7 @@ const orderitemmodel = require('../../model/order-item/orderitemmodel');
 const ordermodel = require('../../model/order/ordermodel');
 const cartmodel = require('../../model/cart/cartmodel');
 const catogerymodel = require('../../model/catogery/catogerymodel');
+const banner = require('../../model/banner/banner');
 
 
 
@@ -55,9 +57,29 @@ if(req.session.session_id){
 
 const loadHome=async (req,res)=>{
     try{
+        const user=await usermodel.findOne({_id:req.session.session_id})
+        const banners=await banner.find()
         const catogery=await catogerymodel.find({})
-        const product=await productmodel.find({quantity:{$gt:0}})
-           res.render('./user/home',{message:'',product,session_id:req.session.session_id,catogery})
+        const cart=await cartmodel.find({userid:req.session.session_id})
+        let wishlistcount=0;
+        let cartcount=0;
+        if(cart.length){
+         cartcount= cart[0].items.length
+        }
+        console.log(user);
+        if(user){
+            wishlistcount= user.wishlist.length
+        }
+        const product=await productmodel.find({quantity:{$gt:0}}).limit(10)
+           res.render('./user/home',{message:'',    
+           product,
+           session_id:req.session.session_id,
+           catogery,
+            banners,
+            user,
+            cartcount,
+            wishlistcount
+        })
 
     }catch (e){
         console.log(e.message);
@@ -299,13 +321,13 @@ const loaduserprofile=async(req,res)=>{
     try {
         const catogery=await catogerymodel.find({})
         const orderlist = await ordermodel.find({user:req.session.session_id}).populate('user','username')
-        .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
+        .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}}).sort({ dateorder:-1})
         
 
         const user=await usermodel.findOne({_id:req.session.session_id})
         const address=await addressmodel.find({userid:req.session.session_id})
-      
-        res.render('./user/userprofile',{user,address,orderlist,catogery})
+        const now = new Date();
+        res.render('./user/userprofile',{user,address,orderlist,catogery,now})
     } catch (error) {
         console.log(error.message);
     }
@@ -315,7 +337,9 @@ const loaduserprofile=async(req,res)=>{
 
 const loadaddress=async(req,res)=>{
     try {
-        res.render('./user/addaddress')
+        const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
+        res.render('./user/addaddress',{user,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -324,7 +348,6 @@ const loadaddress=async(req,res)=>{
 
 const addnewaddress=async(req,res)=>{
     try {
-        console.log(req.body.fullName)
         const newuseraddress=new addressmodel({
             userid:req.session.session_id,
             name:req.body.fullName,
@@ -347,8 +370,10 @@ const addnewaddress=async(req,res)=>{
 
 const loadeditaddress=async(req,res)=>{
     try {
+        const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
         const address=await addressmodel.findOne({_id:req.query.id})
-        res.render('./user/editaddress',{address})
+        res.render('./user/editaddress',{address,user,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -377,8 +402,9 @@ const editaddress=async (req,res)=>{
 
 const loadeditprofile=async (req,res)=>{
     try {
+        const catogery=await catogerymodel.find()
         const user= await User.findOne({_id:req.session.session_id})
-        res.render('./user/editprofile',{user})
+        res.render('./user/editprofile',{user,catogery})
        
         
     } catch (error) {
@@ -401,7 +427,9 @@ const editprofile=async(req,res)=>{
 
 const loadchangpassword=async(req,res)=>{
     try {
-        res.render('./user/changepassword',{message:''})
+        const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
+        res.render('./user/changepassword',{message:'',user,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -412,7 +440,6 @@ const change_password=async(req,res)=>{
     try {
         const oldpassword=await User.findOne({_id:req.session.session_id})
 
-        console.log(oldpassword);
         const passMatch=await bcrypt.compare(req.body.currentPassword,oldpassword.password)
         if(passMatch){
             if(req.body.newPassword==req.body.confirmPassword){
@@ -451,6 +478,7 @@ const logout=async (req,res)=>{
 
 const displaycatogery = async(req,res)=>{
     try {
+       
         const catogery=await catogerymodel.find({})
         const product=await productmodel.find({catogery:req.query.id,quantity:{$gt:0}})
         res.render('./catogery/catogery-user-viwe',{product,session_id:req.session.session_id,catogery})
@@ -463,10 +491,125 @@ const displaycatogery = async(req,res)=>{
 
 const displayfullproduct=async (req,res)=>{
     try {
-        const catogery=await catogerymodel.find({})
-        const product=await productmodel.find({quantity:{$gt:0}})
-        
-        res.render('./catogery/full-products',{product,session_id:req.session.session_id,catogery})
+        let products=await productmodel.find({quantity:{$gt:0}})
+
+         // Function to search for products based on given criteria
+function findProducts(query) {
+    const { categoryId, brandId, color, minPrice, maxPrice, searchContent } = query;
+    let results = products;
+  
+    if (categoryId !== undefined) {
+      results = results.filter((product) => product.catogery.toString() === categoryId);
+    }
+    console.log(results);
+  
+    // if (brandId !== undefined) {
+    //   results = results.filter((product) => product.brandId === brandId);
+    // }
+  
+    // if (color !== undefined) {
+    //   results = results.filter((product) => product.color === color);
+    // }
+  
+    // if (minPrice !== undefined) {
+    //   results = results.filter((product) => product.price >= minPrice);
+    // }
+  
+    // if (maxPrice !== undefined) {
+    //   results = results.filter((product) => product.price <= maxPrice);
+    // }
+  
+    if (searchContent !== undefined) {
+        const searchRegExp = new RegExp(searchContent, 'i');
+        console.log(searchRegExp)
+        console.log(searchContent)
+        results = results.filter(
+            (product) =>
+            product.productname.match(searchRegExp) || product.description.match(searchRegExp)|| product.color.match(searchRegExp)|| product.brand.match(searchRegExp)
+            );
+    }
+  
+    return results;
+  }
+  let query=req.query
+ 
+  const product = findProducts(query);
+  const catogery=await catogerymodel.find({})
+  const user=await usermodel.findOne({_id:req.session.session_id})        
+        res.render('./catogery/full-products',{product,catogery,user})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const displayfullproductinpost=async (req,res)=>{
+    try {
+        const products=await productmodel.find({quantity:{$gt:0}})
+
+         // Function to search for products based on given criteria
+function findProducts(query) {
+    const { categoryId, brandId, color,sortOption, priceOptions, searchContent } = query;
+    if(priceOptions.length!==0){
+        var minPrice=priceOptions[0].split('-')[0]
+        var maxPrice=priceOptions[priceOptions.length-1].split('-')[1]
+
+    }else{
+        const minPrice=undefined
+        const maxPrice=undefined
+    }
+    let results = products;
+  
+    if (categoryId !== undefined) {
+        if(categoryId!=='*'){
+      results = results.filter((product) => product.catogery.toString() === categoryId);
+    }
+    }
+  
+    // if (brandId !== undefined) {
+    //   results = results.filter((product) => product.brandId === brandId);
+    // }
+  
+    // if (color !== undefined) {
+    //   results = results.filter((product) => product.color === color);
+    // }
+    
+  
+    if (minPrice !== undefined) {
+      results = results.filter((product) => product.price >= minPrice);
+    }
+  
+    if (maxPrice !== undefined) {
+      results = results.filter((product) => product.price <= maxPrice);
+    }
+    if (sortOption !== undefined) {
+      if (sortOption === 'price-low-high') {
+        results.sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'price-high-low') {
+        results.sort((a, b) => b.price - a.price);
+    }
+    }
+  
+    if (searchContent !== undefined) {
+      const searchRegExp = new RegExp(searchContent, 'i');
+      results = results.filter(
+        (product) =>
+          product.productname.match(searchRegExp) || product.description.match(searchRegExp)|| product.color.match(searchRegExp)|| product.brand.match(searchRegExp)
+      );
+    }
+  
+    return results;
+  }
+  let query=req.body
+ 
+  const product = findProducts(query);
+  const catogery=await catogerymodel.find({})
+  
+  res.json({
+      success:true,
+      product:product,
+
+    })
+    // res.render('./catogery/full-products',{product,session_id:req.session.session_id,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -499,14 +642,16 @@ const loadsuccess=async(req,res)=>{
         .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
 
         let shippingcharge = 0;
-        if (order.shippingmethod == "standardShipping") {
-          shippingcharge = 80;
-        }
+        // if (order.shippingmethod == "standardShipping") {
+        //   shippingcharge = 80;
+        // }
         if (order.shippingmethod == "expressShipping") {
           shippingcharge = 40;
         }
+        const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
         
-        res.render('./user/success',{order,shippingcharge,coupen})
+        res.render('./user/success',{order,shippingcharge,coupen,user,catogery})
     } catch (error) {
         console.log(error.message);
     }
@@ -515,9 +660,8 @@ const loadsuccess=async(req,res)=>{
 
 const wishlisthandle=async(req,res)=>{
     try {
-        const user=await usermodel.findOne({_id:req.session.session_id})
+        var user=await usermodel.findOne({_id:req.session.session_id})
         const allredyadded= user.wishlist.find((id)=>id.toString()===req.query.prodid)
-
         if(allredyadded){
 
             await User.findByIdAndUpdate(
@@ -527,7 +671,8 @@ const wishlisthandle=async(req,res)=>{
                 },
                 {new:true}
             )
-            res.json({ response: false });
+            user=await usermodel.findOne({_id:req.session.session_id})
+            res.json({ response: false ,user });
         }else{
             await User.findByIdAndUpdate(
                 req.session.session_id,
@@ -536,7 +681,8 @@ const wishlisthandle=async(req,res)=>{
                 },
                 {new:true}
             );
-            res.json({ response: true });
+            user=await usermodel.findOne({_id:req.session.session_id})
+            res.json({ response: true, user});
         }
     } catch (error) {
         console.log(error.message);
@@ -549,8 +695,26 @@ const load_wish_list=async (req,res)=>{
     try {
         const user= await usermodel.findOne({_id:req.session.session_id})
         const product=await productmodel.find({_id:{$in:user.wishlist}})
-        console.log(product);
-        res.render('./catogery/wishlist',{product})
+        const catogery=await catogerymodel.find()
+        
+
+        res.render('./catogery/wishlist',{product,user,catogery})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+//for load user order list
+
+const load_orderlist=async (req,res)=>{
+    try {
+        const thisorder = await ordermodel.find({_id:req.query.id}).populate('user','username').populate('shippingaddress')
+        .populate({path:'orderitems',populate:{path:'product',populate:'catogery'}})
+        const order=thisorder[0]
+
+        const catogery=await catogerymodel.find()
+        const user=await usermodel.findOne({_id:req.session.session_id})
+        res.render('./user/orderdetailes-user',{order,user,catogery})
+
     } catch (error) {
         console.log(error.message);
     }
@@ -583,5 +747,7 @@ module.exports={
     resendotp,
     displaycatogery,
     displayfullproduct,
-    loadsuccess
+    loadsuccess,
+    load_orderlist,
+    displayfullproductinpost
 }

@@ -25,24 +25,29 @@ mongoose
     })
 
 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    cookie: {sameSite: 'strict'},
-    saveUninitialized: true,
-    resave: false 
-}))
-app.use(fileupload({
-    useTempFiles:true,    
-  limits: { fileSize: 50 * 1024 * 1024 },
-}))
-app.use(express.static("static"));
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
 
-app.use('/',userrouter)
-app.use('/admin',adminrouter)
-
-
+    
+    app.use(session({
+        secret: process.env.SESSION_SECRET,
+        cookie: {sameSite: 'strict'},
+        saveUninitialized: true,
+        resave: false 
+    }))
+    app.use(fileupload({
+        useTempFiles:true,    
+        limits: { fileSize: 2 * 1024 * 1024 },
+    }))
+    app.use(express.static("static"));
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }));
+    
+    app.use('/',userrouter)
+    app.use('/admin',adminrouter)
+    app.use(function(req, res, next) {
+        res.status(404).render('./user/404'); // '404' should be the name of your 404 template
+      });
+    
+    
 
 app.listen(3313,()=>{
     console.log('server running')
