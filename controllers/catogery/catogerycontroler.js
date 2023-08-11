@@ -25,7 +25,7 @@ const multipleimage = async (file) => {
     }
     return imageurllist;
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -67,7 +67,7 @@ const uploadimage = async (onefile) => {
     };
     return image;
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -80,31 +80,35 @@ const creareproduct = async (req, res) => {
     const slug = slugify(req.body.productName);
 
     // console.log(urllist)
-    const oneproduct=await productmodel.findOne({productname:req.body.productName})
-    if(oneproduct){
-        const category=await catogerymodel.find()
-        res.render("./catogery/addproduct", { category ,message:"This name already exixted ..!"});
-    }else{
-
-    const newproduct = await new product({
+    const oneproduct = await productmodel.findOne({
       productname: req.body.productName,
-      catogery: req.body.category,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      description: req.body.description,
-      image: urllist,
-      slug: slug,
-      brand:req.body.Brand,
-      color:req.body.colur
     });
-    if (urllist[0]) {
-      const paroduct = await newproduct.save();
-    }
+    if (oneproduct) {
+      const category = await catogerymodel.find();
+      res.render("./catogery/addproduct", {
+        category,
+        message: "This name already exixted ..!",
+      });
+    } else {
+      const newproduct = await new product({
+        productname: req.body.productName,
+        catogery: req.body.category,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        description: req.body.description,
+        image: urllist,
+        slug: slug,
+        brand: req.body.Brand,
+        color: req.body.colur,
+      });
+      if (urllist[0]) {
+        const paroduct = await newproduct.save();
+      }
 
-    res.redirect("/admin/productlist");
-}
+      res.redirect("/admin/productlist");
+    }
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -124,7 +128,7 @@ const loadcatogery = async (req, res) => {
     const catocount = await catogerymodel.find().count();
     res.render("./catogery/catogerylist", { catogery, catocount });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -137,7 +141,7 @@ const loadaddcatogery = async (req, res) => {
       action: "/catogerylist/addcatogery",
     });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -145,15 +149,16 @@ const loadaddcatogery = async (req, res) => {
 
 const createcatogery = async (req, res) => {
   try {
-    
-const catergoryData = await catogerymodel.findOne({catogeryname: {$regex: new RegExp(`^${req.body.catogery}$`,"i")}})
+    const catergoryData = await catogerymodel.findOne({
+      catogeryname: { $regex: new RegExp(`^${req.body.catogery}$`, "i") },
+    });
 
-if(catergoryData){
-    res.render("./catogery/addcatogery", {
+    if (catergoryData) {
+      res.render("./catogery/addcatogery", {
         message: "This catogery allredy exist !",
         action: "/catogerylist/addcatogery",
-    });
-    }else{
+      });
+    } else {
       const newcatogery = new catogery({
         catogeryname: req.body.catogery.toUpperCase(),
       });
@@ -163,7 +168,7 @@ if(catergoryData){
       res.redirect("/admin/catogerylist");
     }
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -174,7 +179,7 @@ const loadedite = async (req, res) => {
     const catogery = await catogerymodel.findOne({ _id: req.query.id });
     res.render("./catogery/editcatogery", { message: "", catogery });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -188,7 +193,7 @@ const updatecatogery = async (req, res) => {
     );
     res.redirect("/admin/catogerylist");
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -199,7 +204,7 @@ const loadproductlist = async (req, res) => {
     const product = await productmodel.find({});
     res.render("./catogery/productlist", { product });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -211,7 +216,7 @@ const loadeditproduct = async (req, res) => {
     const category = await catogerymodel.find({});
     res.render("./catogery/editproduct", { category, idproduct });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -223,7 +228,7 @@ const loadeditproductimage = async (req, res) => {
     console.log(idproduct);
     res.render("./catogery/editimages", { product: idproduct });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -232,9 +237,9 @@ const loadeditproductimage = async (req, res) => {
 const loadaddproduct = async (req, res) => {
   try {
     const category = await catogerymodel.find({});
-    res.render("./catogery/addproduct", { category ,message:""});
+    res.render("./catogery/addproduct", { category, message: "" });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -254,12 +259,12 @@ const editproduct = async (req, res) => {
         },
       }
     );
-    const pro=await productmodel.findOne({_id: req.query.id })
-      console.log(pro);
+    const pro = await productmodel.findOne({ _id: req.query.id });
+    console.log(pro);
 
     res.redirect("/admin/productlist");
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -270,7 +275,7 @@ const deleteproduct = async (req, res) => {
     await product.deleteOne({ _id: req.query.id });
     res.json({ response: true });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -279,53 +284,53 @@ const deleteproduct = async (req, res) => {
 const loadproductdetiles = async (req, res) => {
   try {
     const thisproduct = await productmodel.findOne({ slug: req.query.slug });
-    const catogery=await catogerymodel.find()
-        const user=await usermodel.findOne({_id:req.session.session_id})
+    const catogery = await catogerymodel.find();
+    const user = await usermodel.findOne({ _id: req.session.session_id });
+    if (!thisproduct) {
+      throw error(e);
+    }
 
     res.render("./catogery/productdetiles", {
       thisproduct,
       product,
       user,
-      catogery
+      catogery,
     });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
 //for delet image from cloudinary
-const deleteImage = async (public_id)=>{
-  await cloudinary.uploader.destroy(public_id)
-  .then(()=>{
+const deleteImage = async (public_id) => {
+  await cloudinary.uploader
+    .destroy(public_id)
+    .then(() => {
       return true;
-  })
-  .catch((error)=>{
+    })
+    .catch((error) => {
       return false;
-  })
-}
+    });
+};
 
 // for delet image
 
-const deleteProductImage = async (req, res)=>{
+const deleteProductImage = async (req, res) => {
   const { public_id, productId } = req.query;
 
   await deleteImage(public_id);
-  
- 
 
-  await productmodel.updateOne({_id: productId, "image.public_id": public_id},
-      {
-          $pull: {
-              "image": {public_id: public_id}
-          }
-      }
-  )
+  await productmodel.updateOne(
+    { _id: productId, "image.public_id": public_id },
+    {
+      $pull: {
+        image: { public_id: public_id },
+      },
+    }
+  );
 
-
-
-  
-  res.json({response: true})
-}
+  res.json({ response: true });
+};
 
 module.exports = {
   loadcatogery,
@@ -342,5 +347,5 @@ module.exports = {
   loadproductdetiles,
   uploadimage,
   loadeditproductimage,
-  deleteProductImage
+  deleteProductImage,
 };

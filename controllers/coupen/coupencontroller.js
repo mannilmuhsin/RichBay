@@ -127,9 +127,9 @@ const isvalid = async (req, res) => {
         { $set: { valid: true } }
       );
     }
-    res.json({response:{success:true}})
+    res.json({ response: { success: true } });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 

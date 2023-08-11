@@ -6,50 +6,54 @@ const usermodel = require("../../model/user/usermodel");
 const loadcart = async (req, res) => {
   try {
     const cart = await cartmodel.findOne({ userid: req.session.session_id });
-    if(cart){
-      const items =Promise.all( cart.items.map(async (item) => {
-        // console.log(item);
-        const product = await productmodel.findOne({ _id: item.productid });
-        if (item.quantity > product.quantity) {
-         const suosu= await cartmodel.updateMany(
-            {
-              userid: req.session.session_id ,
-              "items.productid": item.productid,
-            },
-            { $set: { "items.$.quantity": product.quantity ,"items.$.totalprice": item.productprice* product.quantity} }
-          );
-          const totalcartprice = await cartmodel.aggregate([
-            {
-              $match: { userid: req.session.session_id },
-            },
-            {
-              $unwind: "$items",
-            },
-            {
-              $group: {
-                _id: null,
-                total: { $sum: "$items.totalprice" },
+    if (cart) {
+      const items = Promise.all(
+        cart.items.map(async (item) => {
+          // console.log(item);
+          const product = await productmodel.findOne({ _id: item.productid });
+          if (item.quantity > product.quantity) {
+            const suosu = await cartmodel.updateMany(
+              {
+                userid: req.session.session_id,
+                "items.productid": item.productid,
               },
-            },
-          ]);
-          const totalcartpricelast = totalcartprice[0].total;
-      
-          await cartmodel.updateOne(
-            { userid: req.session.session_id },
-            { $set: { cartprice: totalcartpricelast } }
-          );
-          console.log(suosu);
-        }
-    
-      }));
-      
+              {
+                $set: {
+                  "items.$.quantity": product.quantity,
+                  "items.$.totalprice": item.productprice * product.quantity,
+                },
+              }
+            );
+            const totalcartprice = await cartmodel.aggregate([
+              {
+                $match: { userid: req.session.session_id },
+              },
+              {
+                $unwind: "$items",
+              },
+              {
+                $group: {
+                  _id: null,
+                  total: { $sum: "$items.totalprice" },
+                },
+              },
+            ]);
+            const totalcartpricelast = totalcartprice[0].total;
 
-   }
-   const catogery=await catogerymodel.find()
-        const user=await usermodel.findOne({_id:req.session.session_id})
-    res.render("./catogery/cart", { cart,catogery,user });
+            await cartmodel.updateOne(
+              { userid: req.session.session_id },
+              { $set: { cartprice: totalcartpricelast } }
+            );
+            console.log(suosu);
+          }
+        })
+      );
+    }
+    const catogery = await catogerymodel.find();
+    const user = await usermodel.findOne({ _id: req.session.session_id });
+    res.render("./catogery/cart", { cart, catogery, user });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -57,7 +61,7 @@ const addtocart = async (req, res) => {
   try {
     const product = await productmodel.findOne({ _id: req.query.id });
     const existcart = await cartmodel.findOne({
-      userid: req.session.session_id
+      userid: req.session.session_id,
     });
     if (existcart) {
       const existproduct = await cartmodel.findOne({
@@ -87,7 +91,7 @@ const addtocart = async (req, res) => {
               }
             );
           }
-        }else{
+        } else {
           res.json({ response: false });
         }
 
@@ -109,7 +113,6 @@ const addtocart = async (req, res) => {
               }
             );
           }
-          
         }
       } else {
         const item = {
@@ -166,9 +169,9 @@ const addtocart = async (req, res) => {
       { $set: { cartprice: totalcartpricelast } }
     );
 
-   res.json({ response: true });
+    res.json({ response: true });
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 
@@ -212,7 +215,7 @@ const removeonefromcart = async (req, res) => {
       res.redirect("/cart");
     }
   } catch (error) {
-    console.log(error.message);
+    res.render("./user/404");
   }
 };
 

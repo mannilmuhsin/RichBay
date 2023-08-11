@@ -4,6 +4,10 @@ const app=express()
 const userrouter=require('./routers/user/userrouter')
 const adminrouter=require('./routers/admin/adminrouter')
 const fileupload=require('express-fileupload')
+const path = require('path');  // Require the 'path' module
+
+require(path.pathToFileURL(process.env.pm_exec_path));  // Use the 'require' syntax
+
 
 
 const session=require('express-session')

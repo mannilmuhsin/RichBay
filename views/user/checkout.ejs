@@ -196,8 +196,11 @@
 
 
 
-  <div class="container d-flex py-5 container-fluid justify-content-between">
-    <div class="row  ">
+  <div class="container-fluid mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+    <div class="col-md-12 col-sm-12">
       <div class="col-lg-12 col-md-12">
         <h1>Checkout</h1>
 
@@ -207,7 +210,7 @@
 
 
           <% address.forEach((address,i)=>{ %>
-            <div class="address-card ms-5 mt-3">
+            <div class="address-card ms-5 mt-3 bg-white">
               <input class="form-check-input" type="radio" id="address1" name="address" value="<%=address._id  %>"
                 checked>
               <label class="form-check-label" for="address<%=i  %>">
@@ -310,14 +313,16 @@
 
       </div>
     </div>
+  </div>
+  <div class="col-md-6">
 
 
 
 
-    <div class="container py-5 ms-5 mt-5 " style="padding-left: 20rem; height:auto;">
-      <div class="row shadow sticky-top ">
+    <div class="col-md-12 col-sm-12 sticky-top mt-5">
+      <div >
 
-        <div class=" order-summary  mt-4" style="background: #76a2f4;">
+        <div class=" order-summary  mt-4" style="background: #9abbf2;">
           <div class="title">Order Summary</div>
 
           <form class="mb-30" id="couponForm">
@@ -359,6 +364,9 @@
 
       </div>
     </div>
+  </div>
+</div>
+</div>
   </div>
 
 
