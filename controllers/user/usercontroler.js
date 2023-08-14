@@ -511,7 +511,7 @@ const displayfullproduct = async (req, res) => {
       
       // Function to search for products based on given criteria
       function findProducts(query) {
-          const { categoryId, brandId, color, minPrice, maxPrice, searchContent } =
+          const { categoryId, searchContent } =
           query;
           let results = products;
           
@@ -642,10 +642,12 @@ const displayfullproductinpost = async (req, res) => {
 
     const product = findProducts(query);
     const catogery = await catogerymodel.find({});
+    const user = await usermodel.findOne({_id: req.session.session_id})
 
     res.json({
       success: true,
       product: product,
+      user:user
     });
     // res.render('./catogery/full-products',{product,session_id:req.session.session_id,catogery})
   } catch (error) {

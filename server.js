@@ -4,6 +4,7 @@ const app=express()
 const userrouter=require('./routers/user/userrouter')
 const adminrouter=require('./routers/admin/adminrouter')
 const fileupload=require('express-fileupload')
+const nocache = require('nocache')
 
 
 
@@ -42,6 +43,7 @@ mongoose
     app.use(express.static("static"));
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
+    app.use(nocache());
     
     app.use('/',userrouter)
     app.use('/admin',adminrouter)

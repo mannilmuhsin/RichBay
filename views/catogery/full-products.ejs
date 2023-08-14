@@ -589,11 +589,15 @@
               </div>
 
               <div id="reload" class="block2-txt-child2 flex-r p-t-3">
-                <a href="#" id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                <div <% if(!user){ %> onclick="handleWishlistClick()" <% } %> id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"> 
                   <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
                   <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-                </a>
-                <a onclick="Addtocart('<%=product._id  %>')" class="ms-3 "><span>
+                </div>
+                <% if(user){ %>
+                <a onclick="Addtocart('<%=product._id  %>') " class="ms-3 "><span>
+                  <% }else{ %>
+                <a onclick="handlecartclick() " class="ms-3 "><span>
+                  <% } %>
                     <li class="fa-solid fa-cart-shopping"></li>
                   </span></a>
 
@@ -800,7 +804,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
 
   <!-- sweet alert cdn -->
-  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     function Addtocart(id) {
@@ -867,42 +871,7 @@
   <script src="vendor/isotope/isotope.pkgd.min.js"></script>
   <!--===============================================================================================-->
   <script src="vendor/sweetalert/sweetalert.min.js"></script>
-  <!-- <script>
-		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
-			e.preventDefault();
-		}); -->
-
-  // $('.js-addwish-b2').each(function(){
-  // var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-  // $(this).on('click', function(){
-  // swal(nameProduct, "is added to wishlist !", "success");
-
-  // $(this).addClass('js-addedwish-b2');
-  // $(this).off('click');
-  // });
-  // });
-
-  // $('.js-addwish-detail').each(function(){
-  // var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-  // $(this).on('click', function(){
-  // swal(nameProduct, "is added to wishlist !", "success");
-
-  // $(this).addClass('js-addedwish-detail');
-  // $(this).off('click');
-  // });
-  // });
-
-  /*---------------------------------------------*/
-
-  $('.js-addcart-detail').each(function(){
-  var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-  $(this).on('click', function(){
-  swal(nameProduct, "is added to cart !", "success");
-  });
-  });
-
-  <!-- </script> -->
+  
   <!--===============================================================================================-->
   <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
   <script>
@@ -971,6 +940,58 @@
 
 
 
+    
+    function handlecartclick(){
+      
+      Swal.fire({
+          icon: 'info',
+          title: 'Login Required',
+          text: 'Please log in to add products to your cart.',
+          showCancelButton: true,
+          confirmButtonText: 'Log In',
+          cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // You can redirect the user to the login page here
+            //  window.location.href = '/login';
+            Swal.fire({
+              icon: 'info',
+              title: 'Redirecting to Login Page',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(()=>{
+              window.location.href = '/login'
+            });
+          }
+        });
+    }
+
+    function handleWishlistClick() {
+ 
+    // Show the login alert using SweetAlert
+    Swal.fire({
+      icon: 'info',
+      title: 'Login Required',
+      text: 'Please log in to add products to your wishlist.',
+      showCancelButton: true,
+      confirmButtonText: 'Log In',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect the user to the login page
+        Swal.fire({
+          icon: 'info',
+          title: 'Redirecting to Login Page',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          window.location.href = '/login';
+        });
+      }
+    });
+ 
+}
+
   </script>
   <!--===============================================================================================-->
   <script>
@@ -1026,7 +1047,7 @@
           success: function (response) {
             // console.log(response.product);
             if (response && response.product) {
-              renderProductItems(response.product);
+              renderProductItems(response.product,response.user);
             } else {
               console.error("Invalid response or missing product data.");
             }
@@ -1054,7 +1075,7 @@
 
 
     // Function to render product items dynamically
-    function renderProductItems(products) {
+    function renderProductItems(products,user) {
       var productContainer = $("#product-container");
       productContainer.empty(); // Clear previous content
       products.forEach(function (product) {
@@ -1083,13 +1104,14 @@
                 </div>
 
                 <div id="reload" class="block2-txt-child2 flex-r p-t-3">
-                  <div href="#" id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-                    </div>
-                    <a onclick="Addtocart('${product._id}')" class="ms-3 ">
-                  <span><li class="fa-solid fa-cart-shopping"></li></span>
-                </a>
+  <div ${!user ? 'onclick="handleWishlistClick()"' : ''} id="wishlist-icon" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+  </div>
+  ${user ? `<a onclick="Addtocart('${product._id}') " class="ms-3 "><span>` : `<a onclick="handlecartclick() " class="ms-3 "><span>`}
+    <li class="fa-solid fa-cart-shopping"></li>
+  </span></a>
+</div>
                 </div>
               </div>
             </div>
