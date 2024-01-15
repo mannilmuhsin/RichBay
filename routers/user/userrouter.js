@@ -33,12 +33,12 @@ userrouter.get('/cancelorder',midelwear.islogin,ordercontroller.cancelorder)
 userrouter.get('/reotp',usercontroller.resendotp)
 userrouter.get('/catogery-user',usercontroller.displaycatogery)
 userrouter.get('/display-products',usercontroller.displayfullproduct)
-userrouter.get('/success',usercontroller.loadsuccess)
+userrouter.get('/success',midelwear.islogin,usercontroller.loadsuccess)
 userrouter.get('/wish-list-handle',usercontroller.wishlisthandle)
-userrouter.get('/wish-list',usercontroller.load_wish_list)
-userrouter.get('/order-detiles',usercontroller.load_orderlist)
+userrouter.get('/wish-list',midelwear.islogin,usercontroller.load_wish_list)
+userrouter.get('/order-detiles',midelwear.islogin,usercontroller.load_orderlist)
 userrouter.get('/coupen-check',coupencontroller.isvalid)
-userrouter.get('/wallet',walletcontroller.loadWallet)
+userrouter.get('/wallet',midelwear.islogin,walletcontroller.loadWallet)
 
 
 

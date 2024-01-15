@@ -53,6 +53,6 @@ mongoose
     
     
 
-app.listen(3313,()=>{
+app.listen(3310,()=>{
     console.log('server running')
 })

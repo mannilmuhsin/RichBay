@@ -125,8 +125,11 @@
                                                                                             
                                                     <div class="form-outline mb-1">
                                                         <label class="form-label" style="font-size: .75rem;" for="quantity">Quantity</label>
-                                                        <input type="text" id="quantity" name="quantity" style="box-shadow: none;" class="form-control  form-control-sm" required/>
+                                                        <input type="text" id="quantity" name="quantity" style="box-shadow: none;" class="form-control form-control-sm" pattern="^(?=.*[1-9])\d+$" title="Please enter a positive number" required/>
+
                                                     </div>
+                                                    
+                                                    
                                                     
                                                     <div class="form-outline mb-1">
                                                         <label class="form-label" style="font-size: .75rem;" for="description">Description</label>

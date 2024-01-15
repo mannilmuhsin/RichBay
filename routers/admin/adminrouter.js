@@ -30,6 +30,7 @@ adminrouter.get('/banner',midlewear.isadmin,bannercontroller.loadBanner)
 adminrouter.get('/dash-bord',midlewear.isadmin,dashbordcontroller.loadDashboard)
 adminrouter.get('/salse-report',midlewear.isadmin,dashbordcontroller.loadSalesReport)
 adminrouter.get('/edit-product-image',midlewear.isadmin,catogerycontroller.loadeditproductimage)
+adminrouter.get('/logout',adminController.logout)
 
 
 

@@ -135,6 +135,17 @@ const loaddashbord = async (req, res) => {
   }
 };
 
+//admin logout
+
+const logout = async (req, res) => {
+  try {
+    req.session.admin_id = null;
+    res.redirect("/admin/login");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   loadadmin,
   verifyadmin,
@@ -145,4 +156,5 @@ module.exports = {
   changestatus,
   loadorderdetailes,
   loaddashbord,
+  logout,
 };
