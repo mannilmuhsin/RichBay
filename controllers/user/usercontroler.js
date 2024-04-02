@@ -15,18 +15,46 @@ const cartmodel = require("../../model/cart/cartmodel");
 const catogerymodel = require("../../model/catogery/catogerymodel");
 const banner = require("../../model/banner/banner");
 
-const makeotp = () => {
+const hash = async (password) => {
   try {
-    const secret = speakeasy.generateSecret({ length: 20 });
-    const token = speakeasy.totp({
-      secret: secret.base32,
-      encoding: "base32",
-    });
-    return { token, secret };
-  } catch (error) {
-    res.render("./user/404");
+    const hashed = await bcrypt.hash(password, 10);
+    return hashed;
+  } catch (err) {
+    console.log(err.message);
   }
 };
+
+const makeotp = async () => {
+  try {
+    const digits = "0123456789";
+    let token = "";
+
+    for (let i = 0; i < 4; i++) {
+      token += digits[Math.floor(Math.random() * 10)];
+    }
+
+    const secret = await hash(token);
+
+    console.log("otp", token, secret);
+
+    return { token, secret };
+  } catch (error) {
+    // res.render("./user/404");
+    console.log(error);
+  }
+};
+// const makeotp = () => {
+//   try {
+//     const secret = speakeasy.generateSecret({ length: 20 });
+//     const token = speakeasy.totp({
+//       secret: secret.base32,
+//       encoding: "base32",
+//     });
+//     return { token, secret };
+//   } catch (error) {
+//     res.render("./user/404");
+//   }
+// };
 
 const loadsignup = async (req, res) => {
   try {
@@ -134,7 +162,8 @@ const createUser = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const userdata = await User.findOne({ email: email });
+    const userdata = await User.findOne({ email: email, verifide: true });
+    console.log(userdata);
 
     if (userdata) {
       res.render("./user/signup", { message: "this email all redy used" });
@@ -142,6 +171,8 @@ const createUser = async (req, res) => {
       if (req.body.password !== req.body.repassword) {
         res.render("./user/signup", { message: "password not matching" });
       } else {
+        await User.deleteMany({ email: email, verifide: false });
+
         const hashpass = await bcrypt.hash(password, 10);
         const newuser = new User({
           username: username,
@@ -153,10 +184,13 @@ const createUser = async (req, res) => {
         const userdata = await newuser.save();
         //     sendverifyemail(req.body.username,req.body.email,userdata._id)
         //     res.redirect('/witing')
-        const token = makeotp();
-        console.log(token.secret.base32);
+        const token = await makeotp();
+        // console.log(token.secret.base32);
         console.log(token.token);
-        req.session.secret = token.secret.base32;
+        req.session.secret = token.secret;
+        // res.cookie("hashOtp", token, { httpOnly: true });
+        // console.log(req.cookies)
+
         // req.session.session_id=userdata._id
         req.session.token = userdata._id;
         sendverifyemail(null, email, token.token);
@@ -235,40 +269,63 @@ const loadveryfi = async (req, res) => {
 };
 
 const verifyotp = async (req, res) => {
+  // try {
+  //   const validation = speakeasy.totp.verify({
+  //     secret: req.session.secret,
+  //     encoding: "base32",
+  //     token: req.body.otp,
+  //     window: 0,
+  //   });
+
+  //   req.session.secret = null;
+
+  //   console.log(validation);
+  //   if (validation) {
+  //     const user = await User.findOne({ _id: req.session.token });
+  //     if (user) {
+  //       user.verifide = true;
+
+  //       await user.save();
+  //       req.session.session_id = req.session.token;
+  //       req.session.token = null;
+  //       res.redirect("/login");
+  //     } else {
+  //       req.session.session_id = null;
+  //       res.redirect("/signup");
+  //     }
+
+  //     // res.redirect('/')
+  //   } else {
+  //     // await usermodel.deleteOne({_id:req.session.session_id})
+  //     // req.session.destroy();
+  //     // req.session.session_id=null
+  //     // res.clearCookie('user_id')
+  //     res.render("./verify/otp", { message: "OTP NOT MACHING try again" });
+  //   }
+  // } catch (error) {
+  //   res.render("./user/404");
+  // }
   try {
-    const validation = speakeasy.totp.verify({
-      secret: req.session.secret,
-      encoding: "base32",
-      token: req.body.otp,
-      window: 0,
-    });
-
-    req.session.secret = null;
-
-    console.log(validation);
-    if (validation) {
-      const user = await User.findOne({ _id: req.session.token });
-      if (user) {
-        user.verifide = true;
-
-        await user.save();
-        req.session.session_id = req.session.token;
-        req.session.token = null;
-        res.redirect("/login");
-      } else {
-        req.session.session_id = null;
-        res.redirect("/signup");
-      }
-
-      // res.redirect('/')
+    // const userId = req.query.id;
+    const secret = req.session.secret;
+    const OTP = req.body.otp;
+    const verified = await bcrypt.compare(OTP, secret);
+    console.log("verify",verified);
+    if (verified) {
+      await usermodel.findByIdAndUpdate(
+        { _id: req.session.token },
+        { $set: { verifide: true } }
+      );
+      console.log("otp verification success");
+      res.redirect("/login");
     } else {
-      // await usermodel.deleteOne({_id:req.session.session_id})
-      // req.session.destroy();
-      // req.session.session_id=null
-      // res.clearCookie('user_id')
       res.render("./verify/otp", { message: "OTP NOT MACHING try again" });
+      // console.log("otp verification failed");
+      // res.render("/signup");
     }
+    // res.redirect("/");
   } catch (error) {
+    console.log(error);
     res.render("./user/404");
   }
 };
@@ -276,10 +333,10 @@ const verifyotp = async (req, res) => {
 //reotp making
 const resendotp = async (req, res) => {
   try {
-    const token = makeotp();
+    const token = await makeotp();
     console.log(req.session.token);
     console.log(token.token);
-    req.session.secret = token.secret.base32;
+    req.session.secret = token.secret;
     // req.session.session_id=userdata._id
     // req.session.token=userdata._id
     const user = await usermodel.findOne({ _id: req.session.token });
@@ -507,65 +564,65 @@ const displaycatogery = async (req, res) => {
 
 const displayfullproduct = async (req, res) => {
   try {
-      let products = await productmodel.find({ quantity: { $gt: 0 } });
-      
-      // Function to search for products based on given criteria
-      function findProducts(query) {
-          const { categoryId, searchContent } =
-          query;
-          let results = products;
-          
-          if (categoryId !== undefined) {
-              results = results.filter(
-                  (product) => product.catogery.toString() === categoryId
-                  );
-                }
-                
-                if (searchContent !== undefined) {
-                    const searchRegExp = new RegExp(searchContent, "i");
-                    results = results.filter(
-                        (product) =>
-                        product.productname.match(searchRegExp) ||
-                        product.description.match(searchRegExp) ||
-                        product.color.match(searchRegExp) ||
-                        product.brand.match(searchRegExp)
-                        );
-                    }
+    let products = await productmodel.find({ quantity: { $gt: 0 } });
 
-                    return results;
-                }
-                let query = req.query;
-                
-                const product = findProducts(query);
-                // const countproduct = product.length
-                
-                
-                
-                const totalProducts = product.length;
-                const items_per_page=5;
-                const page = +req.query.page || 1;
-                const lastPage = Math.ceil(totalProducts / items_per_page);
+    // Function to search for products based on given criteria
+    function findProducts(query) {
+      const { categoryId, searchContent } = query;
+      let results = products;
+
+      if (categoryId !== undefined) {
+        results = results.filter(
+          (product) => product.catogery.toString() === categoryId
+        );
+      }
+
+      if (searchContent !== undefined) {
+        const searchRegExp = new RegExp(searchContent, "i");
+        results = results.filter(
+          (product) =>
+            product.productname.match(searchRegExp) ||
+            product.description.match(searchRegExp) ||
+            product.color.match(searchRegExp) ||
+            product.brand.match(searchRegExp)
+        );
+      }
+
+      return results;
+    }
+    let query = req.query;
+
+    const product = findProducts(query);
+    // const countproduct = product.length
+
+    const totalProducts = product.length;
+    const items_per_page = 5;
+    const page = +req.query.page || 1;
+    const lastPage = Math.ceil(totalProducts / items_per_page);
     const hasPrevPage = page > 1;
     const hasNextPage = page < lastPage;
     const prevPage = hasPrevPage ? page - 1 : null;
     const nextPage = hasNextPage ? page + 1 : null;
 
     const startIdx = (page - 1) * items_per_page;
-    const paginatedProducts = product.slice(startIdx, startIdx + items_per_page);
+    const paginatedProducts = product.slice(
+      startIdx,
+      startIdx + items_per_page
+    );
 
     const catogery = await catogerymodel.find({});
     const user = await usermodel.findOne({ _id: req.session.session_id });
     res.render("./catogery/full-products", {
-         product : paginatedProducts,
-         catogery,
-          user,
-          hasPrevPage,
-          prevPage,
-          lastPage,
-          currentPage: page,
-          hasNextPage,
-          nextPage
-         });
+      product: paginatedProducts,
+      catogery,
+      user,
+      hasPrevPage,
+      prevPage,
+      lastPage,
+      currentPage: page,
+      hasNextPage,
+      nextPage,
+    });
   } catch (error) {
     res.render("./user/404");
   }
@@ -642,12 +699,12 @@ const displayfullproductinpost = async (req, res) => {
 
     const product = findProducts(query);
     const catogery = await catogerymodel.find({});
-    const user = await usermodel.findOne({_id: req.session.session_id})
+    const user = await usermodel.findOne({ _id: req.session.session_id });
 
     res.json({
       success: true,
       product: product,
-      user:user
+      user: user,
     });
     // res.render('./catogery/full-products',{product,session_id:req.session.session_id,catogery})
   } catch (error) {
